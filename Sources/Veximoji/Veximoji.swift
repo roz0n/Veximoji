@@ -1,6 +1,9 @@
 import Foundation
 
 public struct Veximoji {
+  
+  // MARK: - Enums
+  
   /**
    In this context, cultural term refers to an emoji flag that does not correspond to a country or region, but rather to a cultural reference, movement, or ideology.
    
@@ -18,11 +21,22 @@ public struct Veximoji {
     case racing
   }
   
+  private enum ISO3166_2: String, CaseIterable {
+    case england = "GB-ENG"
+    case wales = "GB-WLS"
+    case scotland = "GB-SCT"
+  }
+  
+  private enum ExceptionalReservations: String, CaseIterable {
+    case europe = "EU"
+    case un = "UN"
+  }
+  
   /**
    Contains Unicode scalars for each case of the [Veximoji.culturalTermScalars](x-source-tag://culturalTermScalars) enum. Each scalar is a `UInt32` value that when sequentially appended to a string's `unicodeScalars` property composes the corresponding emoji flag.
    */
   /// - Tag: culturalTermScalars
-  public static let culturalTermScalars: [CulturalTerms: [UInt32]] = [
+  private static let culturalTermScalars: [CulturalTerms: [UInt32]] = [
     .pride: [UInt32(127987), UInt32(65039), UInt32(8205), UInt32(127752)],
     .trans: [UInt32(127987), UInt32(65039), UInt32(8205), UInt32(9895), UInt32(65039)],
     .pirate: [UInt32(127988), UInt32(8205), UInt32(9760), UInt32(65039)],
@@ -33,41 +47,44 @@ public struct Veximoji {
     .racing: [UInt32(127937)],
   ]
   
-  private enum ISO3166_2: String, CaseIterable {
-    case england = "GB-ENG"
-    case wales = "GB-WLS"
-    case scotland = "GB-SCT"
-  }
-  
   private static let iso3166_2Scalars: [ISO3166_2.RawValue: [UInt32]] = [
     "GB-ENG": [UInt32(127988), UInt32(917607), UInt32(917602), UInt32(917605), UInt32(917614), UInt32(917607), UInt32(917631)],
     "GB-WLS": [UInt32(127988), UInt32(917607), UInt32(917602), UInt32(917623), UInt32(917612), UInt32(917619), UInt32(917631)],
     "GB-SCT": [UInt32(127988), UInt32(917607), UInt32(917602), UInt32(917619), UInt32(917603), UInt32(917620), UInt32(917631)]
   ]
   
-  private enum ExceptionalReservations: String, CaseIterable {
-    case europe = "EU"
-    case un = "UN"
-  }
-  
   private static let exceptionalReservationScalars: [ExceptionalReservations.RawValue: [UInt32]] = [
     "EU": [UInt32(127466), UInt32(127482)],
     "UN": [UInt32(127482), UInt32(127475)],
   ]
   
-  //  var iso3166_2: [String] {
-  //    get {
-  //      return ISO3166_2.allCases.map { $0.rawValue }
-  //    }
-  //  }
-  //
-  //  var exceptionalReservations: [String] {
-  //    get {
-  //      return ExceptionalReservations.allCases.map { $0.rawValue }
-  //    }
-  //  }
+  // MARK: - Computed Properties
   
-  // MARK: - Helpers
+  public static var countryCodes: [String] {
+    get {
+      return CFLocaleCopyISOCountryCodes() as! Array<String>
+    }
+  }
+  
+  public static var subdivisionCodes: [String] {
+    get {
+      return ISO3166_2.allCases.map { $0.rawValue }
+    }
+  }
+  
+  public static var internationalCodes: [String] {
+    get {
+      return ExceptionalReservations.allCases.map { $0.rawValue }
+    }
+  }
+  
+  public static var culturalTerms: [CulturalTerms] {
+    get {
+      return CulturalTerms.allCases
+    }
+  }
+  
+  // MARK: - Helper Methods
   
   /**
    Returns a boolean indicating whether a given string is a valid ISO 3611 Alpha-2 country code.
@@ -92,18 +109,15 @@ public struct Veximoji {
    */
   /// - Tag: validateISO3166_1
   public static func validateISO3166_1(code countryCode: String) -> Bool {
-    let codes = CFLocaleCopyISOCountryCodes() as! Array<String>
-    return codes.contains(countryCode.uppercased())
+    return countryCodes.contains(countryCode.uppercased())
   }
   
   public static func validateISO3166_2(code countryCode: String) -> Bool {
-    let codes = ISO3166_2.allCases.map { $0.rawValue }
-    return codes.contains(countryCode.uppercased())
+    return subdivisionCodes.contains(countryCode.uppercased())
   }
   
   public static func validateExceptionalReservation(code countryCode: String) -> Bool {
-    let codes = ExceptionalReservations.allCases.map { $0.rawValue }
-    return codes.contains(countryCode.uppercased())
+    return internationalCodes.contains(countryCode.uppercased())
   }
   
   // MARK: - Flag Emoji Methods
@@ -142,7 +156,7 @@ public struct Veximoji {
   
   public static func subdivision(code subdivisionCode: String) -> String? {
     guard validateISO3166_2(code: subdivisionCode) else { return nil }
-    guard let scalars = iso3166_2Scalars[subdivisionCode] else { return nil }
+    guard let scalars = iso3166_2Scalars[subdivisionCode.uppercased()] else { return nil }
     var result = ""
     
     scalars.forEach {
@@ -155,9 +169,9 @@ public struct Veximoji {
   
   public static func international(code internationalCode: String) -> String? {
     guard validateExceptionalReservation(code: internationalCode) else { return nil }
-    guard let scalars = exceptionalReservationScalars[internationalCode] else { return nil }
+    guard let scalars = exceptionalReservationScalars[internationalCode.uppercased()] else { return nil }
     var result = ""
-
+    
     scalars.forEach {
       guard let scalar = UnicodeScalar($0) else { return }
       result.unicodeScalars.append(scalar)
