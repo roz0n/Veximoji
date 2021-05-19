@@ -26,6 +26,7 @@ public struct Veximoji {
    
    Public access to this enum is restricted. Use the [Veximoji.subdivisionCodes](x-source-tag://subdivisionCodes) computed property to obtain the its raw values.
    */
+  /// - Tag: ISO3166_2
   private enum ISO3166_2: String, CaseIterable {
     case england = "GB-ENG"
     case wales = "GB-WLS"
@@ -37,13 +38,16 @@ public struct Veximoji {
    
    Public access to this enum is restricted. Use the [Veximoji.internationalCodes](x-source-tag://internationalCodes) computed property to obtain the its raw values.
    */
+  /// - Tag: ExceptionalReservations
   private enum ExceptionalReservations: String, CaseIterable {
     case europe = "EU"
     case un = "UN"
   }
   
   /**
-   Contains Unicode scalars for each case of the [Veximoji.culturalTermScalars](x-source-tag://culturalTermScalars) enum. Each scalar is a `UInt32` value that when sequentially appended to a string's `unicodeScalars` property composes the corresponding emoji flag.
+   Contains Unicode scalars for each case of the [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) enum. Each scalar is a `UInt32` value that when sequentially appended to a string's `unicodeScalars` property composes the corresponding emoji flag.
+   
+   Public access to this dictionary is restricted. To access the scalars of a particular emoji flag, use the `unicodeScalars` property of its string.
    */
   /// - Tag: culturalTermScalars
   private static let culturalTermScalars: [CulturalTerms: [UInt32]] = [
@@ -57,12 +61,22 @@ public struct Veximoji {
     .racing: [UInt32(127937)],
   ]
   
+  /**
+   Contains Unicode scalars for each case of the [Veximoji.ISO3166_2](x-source-tag://ISO3166_2) enum. Each scalar is a `UInt32` value that when sequentially appended to a string's `unicodeScalars` property composes the corresponding emoji flag.
+   
+   Public access to this dictionary is restricted. To access the scalars of a particular emoji flag, use the `unicodeScalars` property of its string.
+   */
   private static let iso3166_2Scalars: [ISO3166_2.RawValue: [UInt32]] = [
     "GB-ENG": [UInt32(127988), UInt32(917607), UInt32(917602), UInt32(917605), UInt32(917614), UInt32(917607), UInt32(917631)],
     "GB-WLS": [UInt32(127988), UInt32(917607), UInt32(917602), UInt32(917623), UInt32(917612), UInt32(917619), UInt32(917631)],
     "GB-SCT": [UInt32(127988), UInt32(917607), UInt32(917602), UInt32(917619), UInt32(917603), UInt32(917620), UInt32(917631)]
   ]
   
+  /**
+   Contains Unicode scalars for each case of the [Veximoji.ExceptionalReservations](x-source-tag://ExceptionalReservations) enum. Each scalar is a `UInt32` value that when sequentially appended to a string's `unicodeScalars` property composes the corresponding emoji flag.
+   
+   Public access to this dictionary is restricted. To access the scalars of a particular emoji flag, use the `unicodeScalars` property of its string.
+   */
   private static let exceptionalReservationScalars: [ExceptionalReservations.RawValue: [UInt32]] = [
     "EU": [UInt32(127466), UInt32(127482)],
     "UN": [UInt32(127482), UInt32(127475)],
@@ -70,12 +84,22 @@ public struct Veximoji {
   
   // MARK: - Computed Properties
   
+  /**
+   Computes and returns all supported [ISO 3166-1](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) country codes.
+   
+   A country code is supported if it is a member of [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes).
+   */
   public static var countryCodes: [String] {
     get {
       return CFLocaleCopyISOCountryCodes() as! Array<String>
     }
   }
   
+  /**
+   Computes and returns all supported [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision codes.
+   
+   For more information on subdivision codes see [this Wikipedia article](https://en.wikipedia.org/wiki/ISO_3166-2).
+   */
   /// - Tag: subdivisionCodes
   public static var subdivisionCodes: [String] {
     get {
@@ -83,6 +107,11 @@ public struct Veximoji {
     }
   }
   
+  /**
+   Computes and returns all supported exceptionally reserved [ISO 3166-1](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) codes.
+   
+   For more information on exceptionally reserved codes see [this Wikipedia article](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Exceptional_reservations).
+   */
   /// - Tag: internationalCodes
   public static var internationalCodes: [String] {
     get {
@@ -90,6 +119,9 @@ public struct Veximoji {
     }
   }
   
+  /**
+   Computes are returns raw values of [Veximoji.CulturalTerms](x-source-tag://CulturalTerms)
+   */
   public static var culturalTerms: [String] {
     get {
       return CulturalTerms.allCases.map { $0.rawValue }
