@@ -21,12 +21,22 @@ public struct Veximoji {
     case racing
   }
   
+  /**
+   [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) codes refer to codes for provinces or states of countries in [ISO 3166-1](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes). (e.g., `GB-ENG` is the ISO 3166-2 code for "England", which is a subdivision of `GB`, or "Great Britain")
+   
+   Public access to this enum is restricted. Use the [Veximoji.subdivisionCodes](x-source-tag://subdivisionCodes) computed property to obtain the its raw values.
+   */
   private enum ISO3166_2: String, CaseIterable {
     case england = "GB-ENG"
     case wales = "GB-WLS"
     case scotland = "GB-SCT"
   }
   
+  /**
+   [Exceptional reservation codes](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Exceptional_reservations) are codes reserved at the request of countries, governments, and/or international organizations. (e.g. the reserved code `EU` is used to identify the "European Union")
+   
+   Public access to this enum is restricted. Use the [Veximoji.internationalCodes](x-source-tag://internationalCodes) computed property to obtain the its raw values.
+   */
   private enum ExceptionalReservations: String, CaseIterable {
     case europe = "EU"
     case un = "UN"
@@ -66,21 +76,23 @@ public struct Veximoji {
     }
   }
   
+  /// - Tag: subdivisionCodes
   public static var subdivisionCodes: [String] {
     get {
       return ISO3166_2.allCases.map { $0.rawValue }
     }
   }
   
+  /// - Tag: internationalCodes
   public static var internationalCodes: [String] {
     get {
       return ExceptionalReservations.allCases.map { $0.rawValue }
     }
   }
   
-  public static var culturalTerms: [CulturalTerms] {
+  public static var culturalTerms: [String] {
     get {
-      return CulturalTerms.allCases
+      return CulturalTerms.allCases.map { $0.rawValue }
     }
   }
   
@@ -89,9 +101,9 @@ public struct Veximoji {
   /**
    Returns a boolean indicating whether a given string is a valid ISO 3611 Alpha-2 country code.
    
-   For more information on ISO 3611-1 country codes visit [this Wikipedia article.](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)
+   For more information on ISO 3611-1 country codes see [this Wikipedia article.](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)
    
-   For more information on supported country codes visit the [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) page in the Apple Developer Documentation.
+   For more information on supported country codes see the [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) page in the Apple Developer Documentation.
    
    - parameter code: A string representing an Alpha-2 country code, e.g. "US" for United States of America or "DO" for Dominican Republic.
    - returns: `Bool` Either `true` or `false` depending on whether or not the given country code is a member of Core Foundation's [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) collection.
@@ -108,15 +120,15 @@ public struct Veximoji {
    ```
    */
   /// - Tag: validateISO3166_1
-  public static func validateISO3166_1(code countryCode: String) -> Bool {
+  private static func validateISO3166_1(code countryCode: String) -> Bool {
     return countryCodes.contains(countryCode.uppercased())
   }
   
-  public static func validateISO3166_2(code countryCode: String) -> Bool {
+  private static func validateISO3166_2(code countryCode: String) -> Bool {
     return subdivisionCodes.contains(countryCode.uppercased())
   }
   
-  public static func validateExceptionalReservation(code countryCode: String) -> Bool {
+  private static func validateExceptionalReservation(code countryCode: String) -> Bool {
     return internationalCodes.contains(countryCode.uppercased())
   }
   
