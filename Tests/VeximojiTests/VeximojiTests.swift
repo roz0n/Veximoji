@@ -60,11 +60,11 @@ final class VeximojiTests: XCTestCase {
   }
   
   func testsISO3166Validation() {
-    XCTAssertTrue(Veximoji.validateISO3166(code: validCountryCode!),
+    XCTAssertTrue(Veximoji.validateISO3166_1(code: validCountryCode!),
                   "Returns true when a valid country code is given")
-    XCTAssertTrue(Veximoji.validateISO3166(code: validCountryCode!.lowercased()),
+    XCTAssertTrue(Veximoji.validateISO3166_1(code: validCountryCode!.lowercased()),
                   "Returns true when a valid lowercased country code is given")
-    XCTAssertFalse(Veximoji.validateISO3166(code: invalidCountryCode!),
+    XCTAssertFalse(Veximoji.validateISO3166_1(code: invalidCountryCode!),
                    "Returns false when an invalid country code is given")
   }
   

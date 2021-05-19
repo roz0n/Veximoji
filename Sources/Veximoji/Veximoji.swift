@@ -38,7 +38,7 @@ public struct Veximoji {
   /**
    Returns a boolean indicating whether a given string is a valid ISO 3611 Alpha-2 country code.
    
-   For more information on ISO 3611 country codes visit [this Wikipedia article.](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)
+   For more information on ISO 3611-1 country codes visit [this Wikipedia article.](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)
    
    For more information on supported country codes visit the [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) page in the Apple Developer Documentation.
    
@@ -49,25 +49,27 @@ public struct Veximoji {
    ```
    let dominicanRepublicCode = "do" // supports uppercase, lowercase, and mixed-case strings
    
-   if Veximoji.validateISO3166(code: dominicanRepublicCode)  {
+   if Veximoji.validateISO3166_1(code: dominicanRepublicCode)  {
    print("That country code is valid!")
    } else {
    print("That code is invalid")
    }
    ```
    */
-  /// - Tag: validateISO3166
-  public static func validateISO3166(code countryCode: String) -> Bool {
+  /// - Tag: validateISO3166_1
+  public static func validateISO3166_1(code countryCode: String) -> Bool {
     let codes = CFLocaleCopyISOCountryCodes() as! Array<String>
     return codes.contains(countryCode.uppercased())
   }
+  
+//  public static func validateISO3166_2
   
   // MARK: - Flag Emoji Methods
   
   /**
    Returns the corresponding emoji flag of a valid and legal ISO 3166 Alpha-2 country code.
    
-   The provided country code is deemed valid if it is a member of [Core Foundation's](https://developer.apple.com/documentation/corefoundation) [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) collection. This condition is only met if [Veximoji.validateISO3166](x-source-tag://validateISO3166) returns `true` for the given country code.
+   The provided country code is deemed valid if it is a member of [Core Foundation's](https://developer.apple.com/documentation/corefoundation) [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) collection. This condition is only met if [Veximoji.validateISO3166_1](x-source-tag://validateISO3166_1) returns `true` for the given country code.
    
    - parameter code: A string representing a country code, e.g. "US" for United States of America or "DO" for Dominican Republic.
    - returns: `String?` Either a string representing the emoji flag of the given ISO 3166 country code or `nil` if an invalid or illegal country code is provided.
@@ -82,11 +84,11 @@ public struct Veximoji {
   public static func country(code countryCode: String) -> String? {
     var resultString = ""
     
-    if !validateISO3166(code: countryCode) {
+    if !validateISO3166_1(code: countryCode) {
       return nil
     } else {
       let worldFlagBaseScalar: UInt32 = 127397
-      
+
       for scalar in countryCode.uppercased().unicodeScalars {
         let result = UnicodeScalar(worldFlagBaseScalar + scalar.value)!
         resultString.unicodeScalars.append(result)
@@ -114,7 +116,6 @@ public struct Veximoji {
   public static func cultural(term: CulturalTerms) -> String? {
     guard let flagScalars = culturalTermScalars[term] else { return nil }
     guard !flagScalars.isEmpty else { return nil }
-    
     var resultString = ""
     
     for scalar in flagScalars {
