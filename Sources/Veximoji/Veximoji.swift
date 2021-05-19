@@ -22,9 +22,9 @@ public struct Veximoji {
   }
   
   /**
-   [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) codes refer to codes for provinces or states of countries in [ISO 3166-1](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes). (e.g., `GB-ENG` is the ISO 3166-2 code for "England", which is a subdivision of `GB`, or "Great Britain")
+   [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) codes refer to codes for provinces or states of countries in [ISO 3166-1](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes). (e.g., "GB-ENG" is the code for England, which is a subdivision of "GB", or Great Britain)
    
-   Public access to this enum is restricted. Use the [Veximoji.subdivisionCodes](x-source-tag://subdivisionCodes) computed property to obtain the its raw values.
+   Public access to this enum is restricted. Use the [Veximoji.subdivisionCodes](x-source-tag://subdivisionCodes) computed property to obtain its raw values.
    */
   /// - Tag: ISO3166_2
   private enum ISO3166_2: String, CaseIterable {
@@ -36,7 +36,7 @@ public struct Veximoji {
   /**
    [Exceptional reservation codes](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Exceptional_reservations) are codes reserved at the request of countries, governments, and/or international organizations. (e.g. the reserved code `EU` is used to identify the "European Union")
    
-   Public access to this enum is restricted. Use the [Veximoji.internationalCodes](x-source-tag://internationalCodes) computed property to obtain the its raw values.
+   Public access to this enum is restricted. Use the [Veximoji.internationalCodes](x-source-tag://internationalCodes) computed property to obtain its raw values.
    */
   /// - Tag: ExceptionalReservations
   private enum ExceptionalReservations: String, CaseIterable {
@@ -120,7 +120,7 @@ public struct Veximoji {
   }
   
   /**
-   Computes are returns raw values of [Veximoji.CulturalTerms](x-source-tag://CulturalTerms)
+   Computes are returns raw values of all [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) enum cases.
    */
   public static var culturalTerms: [String] {
     get {
@@ -131,37 +131,77 @@ public struct Veximoji {
   // MARK: - Helper Methods
   
   /**
-   Returns a boolean indicating whether a given string is a valid ISO 3611 Alpha-2 country code.
+   Returns a boolean indicating whether a given string is a valid country code.
    
-   For more information on ISO 3611-1 country codes see [this Wikipedia article.](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)
+   For more information on ISO 3166-1 country codes see [this Wikipedia article.](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)
    
    For more information on supported country codes see the [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) page in the Apple Developer Documentation.
    
-   - parameter code: A string representing an Alpha-2 country code, e.g. "US" for United States of America or "DO" for Dominican Republic.
-   - returns: `Bool` Either `true` or `false` depending on whether or not the given country code is a member of Core Foundation's [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) collection.
+   - parameter code: A string representing an ISO 3166-1 Alpha-2 country code (e.g. "US" for United States of America or "DO" for Dominican Republic)
+   - returns: `Bool` Whether or not the given subdivision code is a member of Core Foundation's [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) collection.
    
    # Example #
    ```
    let dominicanRepublicCode = "do" // supports uppercase, lowercase, and mixed-case strings
    
    if Veximoji.validateISO3166_1(code: dominicanRepublicCode)  {
-   print("That country code is valid!")
+    print("That country code is valid")
    } else {
-   print("That code is invalid")
+    print("That country code is invalid")
    }
    ```
    */
   /// - Tag: validateISO3166_1
-  private static func validateISO3166_1(code countryCode: String) -> Bool {
+  public static func validateISO3166_1(code countryCode: String) -> Bool {
     return countryCodes.contains(countryCode.uppercased())
   }
   
-  private static func validateISO3166_2(code countryCode: String) -> Bool {
-    return subdivisionCodes.contains(countryCode.uppercased())
+  /**
+   Returns a boolean indicating whether a given string is a valid subdivision code.
+   
+   For more information on ISO 3166-2 subdivision codes see [this Wikipedia article.](https://en.wikipedia.org/wiki/ISO_3166-2)
+   
+   - parameter code: A string representing an ISO 3166-2 subdivision code, e.g. "GB-ENG" for England or "GB-WLS" for Wales.
+   - returns: `Bool` Whether or not the given subdivision code is a valid case of the [Veximoji.ISO3166_2](x-source-tag://ISO3166_2) enum.
+   
+   # Example #
+   ```
+   let englandCode = "gb-eng" // supports uppercase, lowercase, and mixed-case strings
+   
+   if Veximoji.validateISO3166_2(code: englandCode)  {
+    print("That subdivision code is valid")
+   } else {
+    print("That subdivision code is invalid")
+   }
+   ```
+   */
+  /// - Tag: validateISO3166_2
+  public static func validateISO3166_2(code subdivisionCode: String) -> Bool {
+    return subdivisionCodes.contains(subdivisionCode.uppercased())
   }
   
-  private static func validateExceptionalReservation(code countryCode: String) -> Bool {
-    return internationalCodes.contains(countryCode.uppercased())
+  /**
+   Returns a boolean indicating whether a given string is a valid ISO 3166-1 exceptionally reserved code.
+   
+   For more information on ISO 3166-1 exceptional reservations see [this Wikipedia article.](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Exceptional_reservations)
+   
+   - parameter code: A string representing an ISO 3166-1 exceptionally reserved code, e.g. "EU" for the European Union or "UN" for the United Nations.
+   - returns: `Bool` Whether or not the given exceptionally reserved code is a valid case of the [Veximoji.ExceptionalReservations](x-source-tag://ExceptionalReservations) enum.
+   
+   # Example #
+   ```
+   let euCode = "eu" // supports uppercase, lowercase, and mixed-case strings
+   
+   if Veximoji.validateExceptionalReservation(code: euCode)  {
+    print("That reserved code is valid")
+   } else {
+    print("That reserved code is invalid")
+   }
+   ```
+   */
+  /// - Tag: validateExceptionalReservation
+  public static func validateExceptionalReservation(code internationalCode: String) -> Bool {
+    return internationalCodes.contains(internationalCode.uppercased())
   }
   
   // MARK: - Flag Emoji Methods
