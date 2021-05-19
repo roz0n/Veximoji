@@ -33,6 +33,40 @@ public struct Veximoji {
     .racing: [UInt32(127937)],
   ]
   
+  private enum ISO3166_2: String, CaseIterable {
+    case england = "GB-ENG"
+    case wales = "GB-WLS"
+    case scotland = "GB-SCT"
+  }
+  
+  private static let iso3166_2Scalars: [ISO3166_2.RawValue: [UInt32]] = [
+    "GB-ENG": [UInt32(127988), UInt32(917607), UInt32(917602), UInt32(917605), UInt32(917614), UInt32(917607), UInt32(917631)],
+    "GB-WLS": [UInt32(127988), UInt32(917607), UInt32(917602), UInt32(917623), UInt32(917612), UInt32(917619), UInt32(917631)],
+    "GB-SCT": [UInt32(127988), UInt32(917607), UInt32(917602), UInt32(917619), UInt32(917603), UInt32(917620), UInt32(917631)]
+  ]
+  
+  private enum ExceptionalReservations: String, CaseIterable {
+    case europe = "EU"
+    case un = "UN"
+  }
+  
+  private static let exceptionalReservationScalars: [ExceptionalReservations.RawValue: [UInt32]] = [
+    "EU": [UInt32(127466), UInt32(127482)],
+    "UN": [UInt32(127482), UInt32(127475)],
+  ]
+  
+  //  var iso3166_2: [String] {
+  //    get {
+  //      return ISO3166_2.allCases.map { $0.rawValue }
+  //    }
+  //  }
+  //
+  //  var exceptionalReservations: [String] {
+  //    get {
+  //      return ExceptionalReservations.allCases.map { $0.rawValue }
+  //    }
+  //  }
+  
   // MARK: - Helpers
   
   /**
@@ -62,7 +96,15 @@ public struct Veximoji {
     return codes.contains(countryCode.uppercased())
   }
   
-//  public static func validateISO3166_2
+  public static func validateISO3166_2(code countryCode: String) -> Bool {
+    let codes = ISO3166_2.allCases.map { $0.rawValue }
+    return codes.contains(countryCode.uppercased())
+  }
+  
+  public static func validateExceptionalReservation(code countryCode: String) -> Bool {
+    let codes = ExceptionalReservations.allCases.map { $0.rawValue }
+    return codes.contains(countryCode.uppercased())
+  }
   
   // MARK: - Flag Emoji Methods
   
@@ -88,7 +130,7 @@ public struct Veximoji {
       return nil
     } else {
       let worldFlagBaseScalar: UInt32 = 127397
-
+      
       for scalar in countryCode.uppercased().unicodeScalars {
         let result = UnicodeScalar(worldFlagBaseScalar + scalar.value)!
         resultString.unicodeScalars.append(result)
@@ -96,6 +138,32 @@ public struct Veximoji {
       
       return resultString
     }
+  }
+  
+  public static func subdivision(code subdivisionCode: String) -> String? {
+    guard validateISO3166_2(code: subdivisionCode) else { return nil }
+    guard let scalars = iso3166_2Scalars[subdivisionCode] else { return nil }
+    var result = ""
+    
+    scalars.forEach {
+      guard let scalar = UnicodeScalar($0) else { return }
+      result.unicodeScalars.append(scalar)
+    }
+    
+    return result == "" ? nil : result
+  }
+  
+  public static func international(code internationalCode: String) -> String? {
+    guard validateExceptionalReservation(code: internationalCode) else { return nil }
+    guard let scalars = exceptionalReservationScalars[internationalCode] else { return nil }
+    var result = ""
+
+    scalars.forEach {
+      guard let scalar = UnicodeScalar($0) else { return }
+      result.unicodeScalars.append(scalar)
+    }
+    
+    return result == "" ? nil : result
   }
   
   /**
