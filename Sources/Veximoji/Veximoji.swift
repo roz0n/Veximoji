@@ -1,8 +1,31 @@
 import Foundation
 
+/// Used to represent an emoji flag group. In the context of `Veximoji`, this class used internally to represent each case of the [Veximoji.FlagGroups](x-source-tag://FlagGroups) enum when calling [Veximoji.getFlag](x-source-tag://getFlag).
+/// - Tag: FlagGroup
+fileprivate class FlagGroup {
+  let type: Veximoji.FlagGroups
+  let validator: ((_: String) -> Bool)?
+  let scalars: [String: [UInt32]]?
+  
+  init(type: Veximoji.FlagGroups, validator: ((_: String) -> Bool)?, scalars: [String: [UInt32]]?) {
+    self.type = type
+    self.validator = validator ?? nil
+    self.scalars = scalars ?? nil
+  }
+}
+
 public struct Veximoji {
   
   // MARK: - Enums
+  
+  /// An enum representing each emoji flag group.
+  /// - Tag: FlagGroups
+  fileprivate enum FlagGroups {
+    case country
+    case subdivision
+    case international
+    case cultural
+  }
   
   /**
    In this context, cultural term refers to an emoji flag that does not correspond to a country or region, but rather to a cultural reference, movement, or ideology.
@@ -27,7 +50,7 @@ public struct Veximoji {
    Public access to this enum is restricted. Use the [Veximoji.subdivisionCodes](x-source-tag://subdivisionCodes) computed property to obtain its raw values.
    */
   /// - Tag: ISO3166_2
-  private enum ISO3166_2: String, CaseIterable {
+  fileprivate enum ISO3166_2: String, CaseIterable {
     case england = "GB-ENG"
     case wales = "GB-WLS"
     case scotland = "GB-SCT"
@@ -66,7 +89,7 @@ public struct Veximoji {
    
    Public access to this dictionary is restricted. To access the scalars of a particular emoji flag, use the `unicodeScalars` property of its string.
    */
-  private static let iso3166_2Scalars: [ISO3166_2.RawValue: [UInt32]] = [
+  fileprivate static let iso3166_2Scalars: [ISO3166_2.RawValue: [UInt32]] = [
     "GB-ENG": [UInt32(127988), UInt32(917607), UInt32(917602), UInt32(917605), UInt32(917614), UInt32(917607), UInt32(917631)],
     "GB-WLS": [UInt32(127988), UInt32(917607), UInt32(917602), UInt32(917623), UInt32(917612), UInt32(917619), UInt32(917631)],
     "GB-SCT": [UInt32(127988), UInt32(917607), UInt32(917602), UInt32(917619), UInt32(917603), UInt32(917620), UInt32(917631)]
@@ -125,6 +148,60 @@ public struct Veximoji {
   public static var culturalTerms: [String] {
     get {
       return CulturalTerms.allCases.map { $0.rawValue }
+    }
+  }
+  
+  // MARK: -
+  
+  /// Used internally to create and return an emoji flag based on the `type` property of the given [Veximoji.FlagGroup](x-source-tag://FlagGroup).
+  /// - Parameters:
+  ///   - category: A class that inherits from [Veximoji.FlagGroup](x-source-tag://FlagGroup)
+  ///   - query: A unique indentifier for a specific flag (e.g., a ISO 3166 Alpha-2 country or reserved code, an ISO 3166-2 subdivision code, or a case of the [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) enum).
+  /// - Returns: `Bool` Either a string containing the corresponding flag emoji, or `nil`.
+  /// - Tag: getFlag
+  private static func getFlag<T: FlagGroup>(category: T, query: String) -> String? {
+    var emojiString = ""
+    
+    if let validator = category.validator {
+      guard validator(query) else { return nil }
+    }
+    
+    switch category.type {
+      case .subdivision, .international:
+        guard let scalars = category.scalars?[query.uppercased()] else { return nil }
+        guard !scalars.isEmpty else { return nil }
+        
+        for scalar in scalars {
+          if let scalar = UnicodeScalar(scalar) {
+            emojiString.unicodeScalars.append(scalar)
+          } else {
+            return nil
+          }
+        }
+        
+        return emojiString
+      case .country:
+        let baseValue: UInt32 = 127397
+        
+        for scalar in query.uppercased().unicodeScalars {
+          if let toAppend = UnicodeScalar(baseValue + scalar.value) {
+            emojiString.unicodeScalars.append(toAppend)
+          }
+        }
+        
+        return emojiString
+      case .cultural:
+        guard let scalars = category.scalars else { return nil }
+        guard let values = scalars[query] else { return nil }
+        guard !values.isEmpty else { return nil }
+        
+        for scalar in values {
+          if let scalar = UnicodeScalar(scalar) {
+            emojiString.unicodeScalars.append(scalar)
+          }
+        }
+        
+        return emojiString
     }
   }
   
@@ -222,22 +299,10 @@ public struct Veximoji {
    ```
    */
   public static func country(code countryCode: String) -> String? {
-    var resultString = ""
-    
-    if !validateISO3166_1(code: countryCode) {
-      return nil
-    } else {
-      let worldFlagBaseScalar: UInt32 = 127397
-      
-      for scalar in countryCode.uppercased().unicodeScalars {
-        let result = UnicodeScalar(worldFlagBaseScalar + scalar.value)!
-        resultString.unicodeScalars.append(result)
-      }
-      
-      return resultString
-    }
+    let category = FlagGroup(type: .country, validator: Veximoji.validateISO3166_1(code:), scalars: nil)
+    return getFlag(category: category, query: countryCode)
   }
-
+  
   /**
    Returns the corresponding emoji flag of a valid and legal ISO 3166-2 subdivision code.
    
@@ -254,16 +319,8 @@ public struct Veximoji {
    ```
    */
   public static func subdivision(code subdivisionCode: String) -> String? {
-    guard validateISO3166_2(code: subdivisionCode) else { return nil }
-    guard let scalars = iso3166_2Scalars[subdivisionCode.uppercased()] else { return nil }
-    var result = ""
-    
-    scalars.forEach {
-      guard let scalar = UnicodeScalar($0) else { return }
-      result.unicodeScalars.append(scalar)
-    }
-    
-    return result == "" ? nil : result
+    let category = FlagGroup(type: .subdivision, validator: Veximoji.validateISO3166_2(code:), scalars: Veximoji.iso3166_2Scalars)
+    return getFlag(category: category, query: subdivisionCode)
   }
   
   /**
@@ -282,16 +339,8 @@ public struct Veximoji {
    ```
    */
   public static func international(code internationalCode: String) -> String? {
-    guard validateExceptionalReservation(code: internationalCode) else { return nil }
-    guard let scalars = exceptionalReservationScalars[internationalCode.uppercased()] else { return nil }
-    var result = ""
-    
-    scalars.forEach {
-      guard let scalar = UnicodeScalar($0) else { return }
-      result.unicodeScalars.append(scalar)
-    }
-    
-    return result == "" ? nil : result
+    let category =  FlagGroup(type: .international, validator: Veximoji.validateExceptionalReservation(code:), scalars: Veximoji.exceptionalReservationScalars)
+    return getFlag(category: category, query: internationalCode)
   }
   
   /**
@@ -299,7 +348,7 @@ public struct Veximoji {
    
    In this context, cultural term refers to an emoji flag that does not correspond to a country or region, but rather to a cultural reference, movement, or ideology. This method receives a cultural term and sequentially appends the corresponding scalars to a string and returns it.
    
-   - parameter named: A valid case of [Veximoji.CulturalTerms](x-source-tag://CulturalTerms), e.g. `.pride` for the rainbow or "pride" flag or `.pirate` for the pirate flag or "Jolly Roger".
+   - parameter term: A valid case of [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) (e.g. `.pride` for the rainbow or "pride" flag or `.pirate` for the pirate flag or "Jolly Roger")
    - returns: `String?` Either a string representing the emoji flag of the cultural term or `nil` if an invalid or illegal term is provided.
    
    # Example #
@@ -310,15 +359,9 @@ public struct Veximoji {
    ```
    */
   public static func cultural(term: CulturalTerms) -> String? {
-    guard let flagScalars = culturalTermScalars[term] else { return nil }
-    guard !flagScalars.isEmpty else { return nil }
-    var resultString = ""
-    
-    for scalar in flagScalars {
-      resultString.unicodeScalars.append(UnicodeScalar(scalar)!)
-    }
-    
-    return resultString
+    guard let scalars = culturalTermScalars[term] else { return nil }
+    let category = FlagGroup(type: .cultural, validator: nil, scalars: [term.rawValue: scalars])
+    return getFlag(category: category, query: term.rawValue)
   }
   
 }
