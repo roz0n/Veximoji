@@ -1,13 +1,13 @@
 import Foundation
 
-/// Used to represent an emoji flag group. In the context of `Veximoji`, this class used internally to represent each case of the [Veximoji.FlagGroups](x-source-tag://FlagGroups) enum when calling [Veximoji.getFlag](x-source-tag://getFlag).
+/// Used to represent an emoji flag category. In the context of `Veximoji`, this class used internally to represent each case of the [Veximoji.FlagCategories](x-source-tag://FlagCategories) enum when calling [Veximoji.getFlag](x-source-tag://getFlag).
 /// - Tag: FlagCategory
 fileprivate class FlagCategory {
-  let type: Veximoji.FlagGroups
+  let type: Veximoji.FlagCategories
   let validator: ((_: String) -> Bool)?
   let scalars: [String: [UInt32]]?
   
-  init(type: Veximoji.FlagGroups, validator: ((_: String) -> Bool)?, scalars: [String: [UInt32]]?) {
+  init(type: Veximoji.FlagCategories, validator: ((_: String) -> Bool)?, scalars: [String: [UInt32]]?) {
     self.type = type
     self.validator = validator ?? nil
     self.scalars = scalars ?? nil
@@ -18,9 +18,9 @@ public struct Veximoji {
   
   // MARK: - Enums
   
-  /// An enum representing each emoji flag group.
-  /// - Tag: FlagGroups
-  public enum FlagGroups: String, CaseIterable {
+  /// An enum representing each emoji flag category.
+  /// - Tag: FlagCategories
+  public enum FlagCategories: String, CaseIterable {
     case country = "country"
     case subdivision = "subdivision"
     case international = "international"
