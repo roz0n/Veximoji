@@ -228,9 +228,9 @@ public struct Veximoji {
    let dominicanRepublicCode = "do" // supports uppercase, lowercase, and mixed-case strings
    
    if Veximoji.validateISO3166_1(code: dominicanRepublicCode)  {
-    print("That country code is valid")
+   print("That country code is valid")
    } else {
-    print("That country code is invalid")
+   print("That country code is invalid")
    }
    ```
    */
@@ -252,9 +252,9 @@ public struct Veximoji {
    let englandCode = "gb-eng" // supports uppercase, lowercase, and mixed-case strings
    
    if Veximoji.validateISO3166_2(code: englandCode)  {
-    print("That subdivision code is valid")
+   print("That subdivision code is valid")
    } else {
-    print("That subdivision code is invalid")
+   print("That subdivision code is invalid")
    }
    ```
    */
@@ -276,9 +276,9 @@ public struct Veximoji {
    let euCode = "eu" // supports uppercase, lowercase, and mixed-case strings
    
    if Veximoji.validateExceptionalReservation(code: euCode)  {
-    print("That reserved code is valid")
+   print("That reserved code is valid")
    } else {
-    print("That reserved code is invalid")
+   print("That reserved code is invalid")
    }
    ```
    */
@@ -300,7 +300,7 @@ public struct Veximoji {
    # Example #
    ```
    if let emojiFlag = Veximoji.country(code: "DO")  {
-    print("The Dominican Flag: \(emojiFlag)")
+   print("The Dominican Flag: \(emojiFlag)")
    }
    ```
    */
@@ -324,7 +324,7 @@ public struct Veximoji {
    # Example #
    ```
    if let walesFlag = Veximoji.subdivision(code: "GB-WLS")  {
-    print("Baner Cymru: \(walesFlag)")
+   print("Baner Cymru: \(walesFlag)")
    }
    ```
    */
@@ -348,7 +348,7 @@ public struct Veximoji {
    # Example #
    ```
    if let euFlag = Veximoji.international(code: "EU")  {
-    print("The European Union Flag: \(euFlag)")
+   print("The European Union Flag: \(euFlag)")
    }
    ```
    */
@@ -373,7 +373,7 @@ public struct Veximoji {
    # Example #
    ```
    if let pirateEmojiFlag = Veximoji.cultural(named: .pirate)  {
-    print("Jolly Roger": \(pirateEmojiFlag)")
+   print("Jolly Roger": \(pirateEmojiFlag)")
    }
    ```
    */
@@ -386,6 +386,22 @@ public struct Veximoji {
     } else {
       return nil
     }
+  }
+  
+}
+
+extension String {
+  
+  public func getCountryFlag() -> String? {
+    return Veximoji.country(code: self)
+  }
+  
+  public func getSubdivisonFlag() -> String? {
+    return Veximoji.subdivision(code: self)
+  }
+  
+  public func getInternationalFlag() -> String? {
+    return Veximoji.international(code: self)
   }
   
 }
