@@ -406,7 +406,7 @@ extension String {
    }
    ```
    */
-  public func countryFlag() -> String? {
+  private func countryFlag() -> String? {
     return Veximoji.country(code: self)
   }
   
@@ -425,7 +425,7 @@ extension String {
    }
    ```
    */
-  public func subdivisionFlag() -> String? {
+  private func subdivisionFlag() -> String? {
     return Veximoji.subdivision(code: self)
   }
   
@@ -444,7 +444,7 @@ extension String {
    }
    ```
    */
-  public func internationalFlag() -> String? {
+  private func internationalFlag() -> String? {
     return Veximoji.international(code: self)
   }
   
