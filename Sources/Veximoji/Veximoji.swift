@@ -404,4 +404,12 @@ extension String {
     return Veximoji.international(code: self)
   }
   
+  public func flag() -> String? {
+    return (
+      self.getCountryFlag() == nil
+      ? (self.getSubdivisonFlag() == nil ? self.getInternationalFlag() : self.getSubdivisonFlag())
+      : self.getCountryFlag()
+    )
+  }
+  
 }

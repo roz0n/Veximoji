@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
   name: "Veximoji",
-  platforms: [.iOS("12.0"), .macOS("10.10") , .watchOS("3.1.1") , .tvOS("10.1")],
+  platforms: [.iOS(.v12), .macOS(.v10_14) , .watchOS(.v3) , .tvOS(.v10)],
   products: [
     // Products define the executables and libraries a package produces, and make them visible to other packages.
     .library(
