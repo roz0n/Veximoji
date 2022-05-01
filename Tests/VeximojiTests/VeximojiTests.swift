@@ -76,10 +76,7 @@ final class VeximojiTests: XCTestCase {
     for term in Veximoji.CulturalTerms.allCases {
       let scalars = Veximoji.culturalScalars[term]
       
-      // Assert not-nil -- ensures force-unwrapping is safe
       XCTAssertNotNil(scalars, "Each cultural term has an associated entry in the scalars dictionary")
-      
-      // Assert false
       XCTAssertFalse(scalars!.isEmpty, "Each entry in the scalars dictionary is populated")
     }
   }
@@ -93,14 +90,11 @@ final class VeximojiTests: XCTestCase {
     
     let validInputScalars = validInput!.unicodeScalars.first!
     
-    // Assert not-nil -- ensures force-unwrapping is safe
     XCTAssertNotNil(validInputScalars)
     
-    // Assert true
     XCTAssertTrue(type(of: term) == Veximoji.CulturalTerms.self)
     XCTAssertTrue(validInputScalars.properties.isEmoji, "Returns an emoji when a valid country code is given")
     
-    // Assert nil
     XCTAssertNil(nilInput, "Returns nil when nil is given")
   }
   
@@ -113,15 +107,12 @@ final class VeximojiTests: XCTestCase {
     let validInputScalars = validInput!.unicodeScalars.first!
     let lowercasedValidInputScalars = lowercasedValidInput!.unicodeScalars.first!
     
-    // Assert not-nil -- ensures force-unwrapping is safe
     XCTAssertNotNil(validInputScalars)
     XCTAssertNotNil(lowercasedValidInputScalars)
     
-    // Assert true
     XCTAssertTrue(validInputScalars.properties.isEmoji, "Returns an emoji when a valid country code is given")
     XCTAssertTrue(lowercasedValidInputScalars.properties.isEmoji, "Returns an emoji when a valid lowercased country code is given")
     
-    // Assert nil
     XCTAssertNil(invalidInput, "Returns nil when an invalid country code is given")
     XCTAssertNil(nilInput, "Returns nil when nil is given")
   }
@@ -135,15 +126,12 @@ final class VeximojiTests: XCTestCase {
     let validInputScalars = validInput!.unicodeScalars.first!
     let lowercasedValidInputScalars = lowercasedValidInput!.unicodeScalars.first!
     
-    // Assert not-nil -- ensures force-unwrapping is safe
     XCTAssertNotNil(validInputScalars)
     XCTAssertNotNil(lowercasedValidInputScalars)
     
-    // Assert true
     XCTAssertTrue(validInputScalars.properties.isEmoji, "Returns an emoji when a valid country code is given")
     XCTAssertTrue(lowercasedValidInputScalars.properties.isEmoji, "Returns an emoji when a valid lowercased country code is given")
     
-    // Assert nil
     XCTAssertNil(invalidInput, "Returns nil when an invalid code is given")
     XCTAssertNil(nilInput, "Returns nil when nil is given")
   }
@@ -157,57 +145,51 @@ final class VeximojiTests: XCTestCase {
     let validInputScalars = validInput!.unicodeScalars.first!
     let lowercasedValidInputScalars = lowercasedValidInput!.unicodeScalars.first!
     
-    // Assert not-nil -- ensures force-unwrapping is safe
     XCTAssertNotNil(validInputScalars)
     XCTAssertNotNil(lowercasedValidInputScalars)
     
-    // Assert true
     XCTAssertTrue(validInputScalars.properties.isEmoji, "Returns an emoji when a valid international code is given")
     XCTAssertTrue(lowercasedValidInputScalars.properties.isEmoji, "Returns an emoji when a valid lowercased international code is given")
     
-    // Assert nil
     XCTAssertNil(invalidInput, "Returns nil when an invalid code is given")
     XCTAssertNil(nilInput, "Returns nil when an invalid code is given")
+  }
+  
+  // MARK: - String Extension Tests
+  
+  func testsExtensionFlagHelper() {
+    
   }
   
   // MARK: - Validation Tests
   
   func testsISO3166_1Validation() {
-    // Assert not-nil -- ensures force-unwrapping is safe
     XCTAssertNotNil(validCountryCode)
     XCTAssertNotNil(invalidCode)
     
-    // Assert true
     XCTAssertTrue(Veximoji.validateISO3166_1(code: validCountryCode!), "Returns true when a valid country code is given")
     XCTAssertTrue(Veximoji.validateISO3166_1(code: validCountryCode!.lowercased()), "Returns true when a valid lowercased country code is given")
     
-    // Assert false
     XCTAssertFalse(Veximoji.validateISO3166_1(code: invalidCode!), "Returns false when an invalid code is given")
   }
   
   func testsISO3166_2Validation() {
-    // Assert not-nil -- ensures force-unwrapping is safe
     XCTAssertNotNil(validSubdivisonCode)
     XCTAssertNotNil(invalidCode)
     
-    // Assert true
     XCTAssertTrue(Veximoji.validateISO3166_2(code: validSubdivisonCode!), "Returns true when a valid subdivision code is given")
     XCTAssertTrue(Veximoji.validateISO3166_2(code: validSubdivisonCode!.lowercased()), "Returns true when a valid lowercased subdivision code is given")
     
-    // Assert false
     XCTAssertFalse(Veximoji.validateISO3166_2(code: invalidCode!), "Returns false when an invalid code is given")
   }
   
   func testsExceptionalReservationValidation() {
-    // Assert not-nil -- ensures force-unwrapping is safe
     XCTAssertNotNil(validInternationalCode)
     XCTAssertNotNil(invalidCode)
     
-    // Assert true
     XCTAssertTrue(Veximoji.validateExceptionalReservation(code: validInternationalCode!), "Returns true when a valid international code is given")
     XCTAssertTrue(Veximoji.validateExceptionalReservation(code: validInternationalCode!.lowercased()), "Returns true when a valid lowercased international code is given")
     
-    // Assert false
     XCTAssertFalse(Veximoji.validateExceptionalReservation(code: invalidCode!), "Returns false when an invalid code is given")
   }
   
