@@ -37,7 +37,7 @@ Package installation follows traditional conventions.
 
 #### Manual Installation
 
-Add **`package(url: "https://github.com/roz0n/Veximoji.git", from: "1.0.0")`**  to your application's **`Package.swift`** file.
+Add **`package(url: "https://github.com/roz0n/Veximoji.git", from: "2.0.0")`**  to your application's **`Package.swift`** file.
 
 #### Via Xcode
 
@@ -60,7 +60,7 @@ The **`Veximoji`** API is very concise and well-documented. It supports four dif
 | `country` | flags for countries with an ISO 3611-1 alpha-2 code |`JP`|
 | `subdivision` | flags for subdivisions with an ISO 3611-2 code | `GB-ENG` |
 | `international` | flags for exceptionally reserved ISO 3166-1 alpha-2 codes | `EU` or `UN` |
-| `unique` | flags not related to individual countries or subdivisions | `.pirate` |
+| `unique` | flags not related to individual countries or subdivisions | `.pirate` or `"pirate"`|
 
 Each emoji flag category has a method to obtain its flags.
 
@@ -153,6 +153,8 @@ if let flag = Veximoji.unique(term: .pride)  {
   print("\(flag)") // "🏳️‍🌈"
 }
 ```
+
+
 
 ### Code Validation Methods
 

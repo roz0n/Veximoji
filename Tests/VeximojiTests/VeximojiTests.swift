@@ -71,13 +71,13 @@ final class VeximojiTests: XCTestCase {
   
   // MARK: - Unicode Scalars Tests
   
-  func testsCulturalTermScalars() {
+  func testsUniqueTermScalars() {
     // Ensures each term has an array of scalars
-    for term in Veximoji.CulturalTerms.allCases {
-      let scalars = Veximoji.culturalScalars[term]
+    for term in Veximoji.UniqueTerms.allCases {
+      let scalars = Veximoji.uniqueScalars[term]
       
       XCTAssertNotNil(scalars,
-                      "Each cultural term has an associated entry in the scalars dictionary")
+                      "Each unique term has an associated entry in the scalars dictionary")
       XCTAssertFalse(scalars!.isEmpty,
                      "Each entry in the scalars dictionary is populated")
     }
@@ -85,15 +85,15 @@ final class VeximojiTests: XCTestCase {
   
   // MARK: - Emoji Flag Tests
   
-  func testsCulturalFlagEmoji() {
-    let term: Veximoji.CulturalTerms = .pirate
-    let validInput = Veximoji.cultural(term: .pirate)
-    let nilInput = Veximoji.cultural(term: nil)
+  func testsUniqueFlagEmoji() {
+    let term: Veximoji.UniqueTerms = .pirate
+    let validInput = Veximoji.unique(term: .pirate)
+    let nilInput = Veximoji.unique(term: nil)
     let validInputScalars = validInput!.unicodeScalars.first!
     
     XCTAssertNotNil(validInputScalars)
     
-    XCTAssertTrue(type(of: term) == Veximoji.CulturalTerms.self)
+    XCTAssertTrue(type(of: term) == Veximoji.UniqueTerms.self)
     XCTAssertTrue(validInputScalars.properties.isEmoji,
                   "Returns an emoji when a valid country code is given")
     
