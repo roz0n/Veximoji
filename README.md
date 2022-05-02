@@ -75,7 +75,7 @@ The **`Veximoji`** API is very concise and well-documented. It supports four dif
 | `international` | flags for exceptionally reserved ISO 3166-1 alpha-2 codes | `EU` or `UN` |
 | `unique` | flags not related to individual countries or subdivisions | `.pirate` or `"pirate"`|
 
----
+
 ### `flag(term:) -> String?`
 
 Converts any string to its emoji flag counterpart if the string exists within a `FlagCategory`.
@@ -97,7 +97,7 @@ if let flag = Veximoji.flag("UN") {
 	print("\(flag)") // "🇺🇳"
 }
 ```
----
+
 ### `country(code:) -> String?`
 
 - Used to render a country's emoji flag by its ISO 3611-1 alpha-2 code
@@ -112,7 +112,7 @@ if let flag = Veximoji.country(code: "DO")  {
   print("\(flag)") // "🇩🇴"
 }
 ```
----
+
 ### `subdivision(code:) -> String?`
 
 - Used to render a given subdivision’s emoji flag by its ISO 3611-2 code
@@ -136,7 +136,7 @@ if let flag = Veximoji.subdivision(code: "GB-SCT")  {
   print("\(flag)") // "🏴󠁧󠁢󠁳󠁣󠁴󠁿"
 }
 ```
----
+
 ### `international(code:) -> String?`
 
 - Used to render the flag of an exceptionally reserved ISO 3166-1 alpha-2 code
@@ -158,7 +158,7 @@ if let flag = Veximoji.subdivision(code: "UN")  {
   print("\(flag)") // "🇺🇳"
 }
 ```
----
+
 ### `unique(term:) -> String?`
 
 In the context of **`Veximoji`**, *unique term* refers to an emoji flag that does not correspond to a country or region, but rather to a unique reference, movement, or ideology. For example, **`.pride`** refers to the "rainbow" or "pride" flag.
@@ -190,7 +190,6 @@ if let flag = Veximoji.unique(term: .pride)  {
 
 In the event you would like to validate any of the above codes or terms manually for whatever reason, **`Veximoji`** exposes its validation methods for your convenience.
 
----
 ### `validateISO3166_1(code:) -> Bool`
 
 - Returns a boolean indicating whether a given string is a supported ISO 3611 alpha-2 country code by checking whether or not it is contained within the **`CFLocaleCopyISOCountryCodes`** collection
@@ -205,7 +204,7 @@ if Veximoji.validateISO3166_1(code: code)  {
   print("Code is valid")
 }
 ```
----
+
 ### `validateISO3166_2(code:) -> Bool`
 
 - Returns a boolean indicating whether a given string is a valid ISO 3611-2 subdivision code
@@ -220,7 +219,7 @@ if Veximoji.validateISO3166_2(code: code)  {
   print("Code is valid")
 }
 ```
----
+
 ### `validateExceptionalReservation(code:) -> Bool`
 
 - Returns a boolean indicating whether a given string is a valid ISO 3166-1 exceptionally reserved code.
