@@ -284,7 +284,7 @@ public struct Veximoji {
   // MARK: - Flag Emoji Methods
   
   /**
-   Returns an optional string containing the emoji flag of a valid and legal ISO 3166 alpha-2 country code.
+   Returns an optional string containing the emoji flag of a valid ISO 3166 alpha-2 country code.
    
    The given country code is deemed valid if it is a member of [Core Foundation's](https://developer.apple.com/documentation/corefoundation) [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) collection. This condition is only met if [Veximoji.validateISO3166_1](x-source-tag://validateISO3166_1) returns `true` for the given country code.
    
@@ -308,12 +308,12 @@ public struct Veximoji {
   }
   
   /**
-   Returns an optional string containing the emoji flag of a valid and legal ISO 3166-2 subdivision code.
+   Returns an optional string containing the emoji flag of a valid ISO 3166-2 subdivision code.
    
    The given subdivision code is deemed valid if it is a member of the [Veximoji.ISO3166_2](x-source-tag://ISO3166_2) enum. This condition is only met if [Veximoji.validateISO3166_2](x-source-tag://validateISO3166_2) returns `true` for the given subdivision code.
    
    - parameter code: A string representing an ISO 3166-2 subdivision code, e.g. `"GB-ENG"` for England or `"GB-WLS"` for Wales.
-   - returns: `String?` Either a string representing the emoji flag of the given subdivision code or `nil` if an invalid or illegal code is provided.
+   - returns: `String?` Either a string representing the emoji flag of the given subdivision code or `nil`.
    
    # Example #
    ```
@@ -332,12 +332,12 @@ public struct Veximoji {
   }
   
   /**
-   Returns an optional string containing the emoji flag of an exceptionally reserved ISO 3166-1 alpha-2 code.
+   Returns an optional string containing the emoji flag of an ISO 3166-1 alpha-2 exceptional reservation code.
    
    The provided exceptional reservation code is deemed valid if it is a member of the [Veximoji.ExceptionalReservations](x-source-tag://ExceptionalReservations) enum. This condition is only met if [Veximoji.validateExceptionalReservation](x-source-tag://validateExceptionalReservation) returns `true` for the given exceptional reservation code.
    
    - parameter code: A string representing an ISO 3166-1 exceptional reservation code, e.g. `"EU"` for the European Union or `"UN"` for the United Nations.
-   - returns: `String?` Either a string representing the emoji flag of the given exceptional reservation code, or `nil` if an invalid or illegal code is provided.
+   - returns: `String?` Either a string representing the emoji flag of the given exceptional reservation code or `nil`.
    
    # Example #
    ```
@@ -403,9 +403,9 @@ public struct Veximoji {
 
 extension String {
   /**
-   Used internally by [String.flag](x-source-tag://flag) to obtain the emoji flag of a valid and legal ISO 3166 alpha-2 country code.
+   Used internally by [String.flag](x-source-tag://flag) to obtain the emoji flag of a valid ISO 3166 alpha-2 country code.
    
-   - returns: `String?` Either a string representing the emoji flag of the given ISO 3166 country code or `nil` if an invalid or illegal country code is provided.
+   - returns: `String?` Either a string representing the emoji flag of the given ISO 3166 country code or `nil`.
    
    # Example #
    ```
@@ -419,9 +419,9 @@ extension String {
   }
   
   /**
-   Used internally by [String.flag](x-source-tag://flag) to obtain the emoji flag of a valid and legal ISO 3166-2 subdivision code.
+   Used internally by [String.flag](x-source-tag://flag) to obtain the emoji flag of a valid ISO 3166-2 subdivision code.
    
-   - returns: `String?` Either a string representing the emoji flag of the given subdivision code or `nil` if an invalid or illegal code is provided.
+   - returns: `String?` Either a string representing the emoji flag of the given subdivision code or `nil`.
    
    # Example #
    ```
@@ -435,9 +435,9 @@ extension String {
   }
   
   /**
-   Used internally by [String.flag](x-source-tag://flag) to obtain the emoji flag of an exceptionally reserved ISO 3166-1 alpha-2 code.
+   Used internally by [String.flag](x-source-tag://flag) to obtain the emoji flag of an ISO 3166-1 alpha-2 exceptional reservation code.
       
-   - returns: `String?` Either a string representing the emoji flag of the given exceptional reservation code, or `nil` if an invalid or illegal code is provided.
+   - returns: `String?` Either a string representing the emoji flag of the given exceptional reservation code or `nil`.
    
    # Example #
    ```
@@ -451,18 +451,18 @@ extension String {
   }
   
   /**
-   Returns an optional string containing the emoji flag of a given cultural term associated with [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) raw values.
+   Used internally by [String.flag](x-source-tag://flag) to obtain the emoji flag of a given cultural term associated with [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) raw values.
       
    - returns: `String?` Either a string representing the emoji flag of the cultural term raw value or `nil`.
    
    # Example #
    ```
-   if let code = "pirate"  {
+   if let code = "pirate".flag()  {
     print("\(code)")
    }
    ```
    */
-  public func culturalFlag() -> String? {
+  fileprivate func culturalFlag() -> String? {
     if let term = Veximoji.CulturalTerms.allCases.filter ({ $0.rawValue == self }).first {
       return Veximoji.cultural(term: term)
     } else {
