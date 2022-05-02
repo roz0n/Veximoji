@@ -4,10 +4,12 @@
 
 <br />
 
-<div align="center" width="100%">
-  <img href=“https://github.com/roz0n/Veximoji/actions/workflows/swift.yml” src="https://github.com/roz0n/Veximoji/actions/workflows/swift.yml/badge.svg?branch=main"> 
+<div align="center" width="100%">	
+	
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Froz0n%2FVeximoji%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/roz0n/Veximoji)
+	
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Froz0n%2FVeximoji%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/roz0n/Veximoji)
+	
 </div>
 
 ---
@@ -171,10 +173,10 @@ In the context of **`Veximoji`**, *unique term* refers to an emoji flag that doe
 | `.trans`  | “trans” | 🏳️‍⚧️ |
 | `.pirate`  | “pirate” | 🏴‍☠️ |
 | `.white`  | “white” | 🏳️ |
+| `.red`  | “red” | 🚩|
 | `.black`  | “black” | 🏴 |
 | `.crossed`  | “crossed” | 🎌 |
-| `.triangular`  | “triangular” | 🚩|
-| `.racing`  | “racing” | 🏁|
+| `.chequered`  | “chequered” | 🏁|
 
 #### Usage
 
