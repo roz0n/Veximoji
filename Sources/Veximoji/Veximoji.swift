@@ -34,14 +34,14 @@ public struct Veximoji {
    */
   /// - Tag: CulturalTerms
   public enum CulturalTerms: String, CaseIterable {
-    case pride
-    case trans
-    case pirate
-    case white
-    case black
-    case crossed
-    case triangular
-    case racing
+    case pride = "pride"
+    case trans = "trans"
+    case pirate = "pirate"
+    case white = "white"
+    case red = "red"
+    case black = "black"
+    case crossed = "crossed"
+    case chequered = "chequered"
   }
   
   /**
@@ -78,10 +78,10 @@ public struct Veximoji {
     .trans: [UInt32(127987), UInt32(65039), UInt32(8205), UInt32(9895), UInt32(65039)],
     .pirate: [UInt32(127988), UInt32(8205), UInt32(9760), UInt32(65039)],
     .white: [UInt32(127987), UInt32(65039)],
+    .red: [UInt32(128681)],
     .black: [UInt32(127988)],
     .crossed: [UInt32(127884)],
-    .triangular: [UInt32(128681)],
-    .racing: [UInt32(127937)],
+    .chequered: [UInt32(127937)]
   ]
   
   /**
@@ -165,7 +165,7 @@ public struct Veximoji {
   ///   - query: A unique indentifier for a specific flag (e.g., a ISO 3166 alpha-2 country or reserved code, an ISO 3166-2 subdivision code, or a case of the [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) enum).
   /// - Returns: `Bool` Either a string containing the corresponding flag emoji, or `nil`.
   /// - Tag: getFlag
-  private static func getFlag<T: FlagCategory>(category: T, query: String) -> String? {
+  fileprivate static func getFlag<T: FlagCategory>(category: T, query: String) -> String? {
     var emojiString = ""
     
     if let validator = category.validator {
@@ -220,7 +220,7 @@ public struct Veximoji {
    
    For more information on supported country codes refer to the [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) page of the Apple Developer Documentation.
    
-   - parameter code: A string representing an ISO 3166-1 alpha-2 country code (e.g. "US" for United States of America or "DO" for Dominican Republic)
+   - parameter code: A string representing an ISO 3166-1 alpha-2 country code (e.g. `"US"` for United States of America or `"DO"` for Dominican Republic)
    - returns: `Bool` Whether or not the given subdivision code is a member of Core Foundation's [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) collection.
    
    # Example #
@@ -228,9 +228,7 @@ public struct Veximoji {
    let code = "do"
    
    if Veximoji.validateISO3166_1(code: code)  {
-    print("Valid code")
-   } else {
-    print("Invalid code")
+    print("Code is valid")
    }
    ```
    */
@@ -244,7 +242,7 @@ public struct Veximoji {
    
    For more information on ISO 3166-2 subdivision codes refer to this [Wikipedia article.](https://en.wikipedia.org/wiki/ISO_3166-2)
    
-   - parameter code: A string representing an ISO 3166-2 subdivision code, e.g. "GB-ENG" for England or "GB-WLS" for Wales.
+   - parameter code: A string representing an ISO 3166-2 subdivision code, e.g. `"GB-ENG"` for England or `"GB-WLS"` for Wales.
    - returns: `Bool` Whether or not the given subdivision code is a valid case of the [Veximoji.ISO3166_2](x-source-tag://ISO3166_2) enum.
    
    # Example #
@@ -252,9 +250,7 @@ public struct Veximoji {
    let code = "gb-eng"
    
    if Veximoji.validateISO3166_2(code: code)  {
-    print("Valid code")
-   } else {
-    print("Invalid code")
+    print("Code is valid")
    }
    ```
    */
@@ -268,7 +264,7 @@ public struct Veximoji {
    
    For more information on ISO 3166-1 exceptional reservations refer to this [Wikipedia article.](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Exceptional_reservations)
    
-   - parameter code: A string representing an ISO 3166-1 exceptional reservation code, e.g. "EU" for the European Union or "UN" for the United Nations.
+   - parameter code: A string representing an ISO 3166-1 exceptional reservation code, e.g. `"EU"` for the European Union or `"UN"` for the United Nations.
    - returns: `Bool` Whether or not the given exceptional reservation code is a valid case of the [Veximoji.ExceptionalReservations](x-source-tag://ExceptionalReservations) enum.
    
    # Example #
@@ -276,9 +272,7 @@ public struct Veximoji {
    let code = "eu"
    
    if Veximoji.validateExceptionalReservation(code: code)  {
-    print("Valid code")
-   } else {
-    print("Invalid code")
+    print("Code is valid")
    }
    ```
    */
@@ -294,7 +288,7 @@ public struct Veximoji {
    
    The given country code is deemed valid if it is a member of [Core Foundation's](https://developer.apple.com/documentation/corefoundation) [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) collection. This condition is only met if [Veximoji.validateISO3166_1](x-source-tag://validateISO3166_1) returns `true` for the given country code.
    
-   - parameter code: A string representing a country code, e.g. "US" for United States of America or "DO" for Dominican Republic.
+   - parameter code: A string representing a country code, e.g. `"US"` for United States of America or `"DO"` for Dominican Republic.
    - returns: `String?` Either a string representing the emoji flag of the given ISO 3166 country code or `nil` if an invalid or illegal country code is provided.
    
    # Example #
@@ -318,7 +312,7 @@ public struct Veximoji {
    
    The given subdivision code is deemed valid if it is a member of the [Veximoji.ISO3166_2](x-source-tag://ISO3166_2) enum. This condition is only met if [Veximoji.validateISO3166_2](x-source-tag://validateISO3166_2) returns `true` for the given subdivision code.
    
-   - parameter code: A string representing an ISO 3166-2 subdivision code, e.g. "GB-ENG" for England or "GB-WLS" for Wales.
+   - parameter code: A string representing an ISO 3166-2 subdivision code, e.g. `"GB-ENG"` for England or `"GB-WLS"` for Wales.
    - returns: `String?` Either a string representing the emoji flag of the given subdivision code or `nil` if an invalid or illegal code is provided.
    
    # Example #
@@ -342,7 +336,7 @@ public struct Veximoji {
    
    The provided exceptional reservation code is deemed valid if it is a member of the [Veximoji.ExceptionalReservations](x-source-tag://ExceptionalReservations) enum. This condition is only met if [Veximoji.validateExceptionalReservation](x-source-tag://validateExceptionalReservation) returns `true` for the given exceptional reservation code.
    
-   - parameter code: A string representing an ISO 3166-1 exceptional reservation code, e.g. "EU" for the European Union or "UN" for the United Nations.
+   - parameter code: A string representing an ISO 3166-1 exceptional reservation code, e.g. `"EU"` for the European Union or `"UN"` for the United Nations.
    - returns: `String?` Either a string representing the emoji flag of the given exceptional reservation code, or `nil` if an invalid or illegal code is provided.
    
    # Example #
@@ -367,8 +361,8 @@ public struct Veximoji {
    
    In this context, cultural term refers to an emoji flag that does not correspond to a country or region, but rather to a cultural reference, movement, or ideology. This method receives a cultural term and sequentially appends the corresponding scalars to a string and returns it.
    
-   - parameter term: A valid case of [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) (e.g. `.pride` for the rainbow or "pride" flag or `.pirate` for the pirate flag or "Jolly Roger")
-   - returns: `String?` Either a string representing the emoji flag of the cultural term or `nil` if an invalid or illegal term is provided.
+   - parameter term: A valid case of [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) (e.g. `.pride` for the rainbow or "pride" flag or `.pirate` for the pirate flag otherwise known as "Jolly Roger")
+   - returns: `String?` Either a string representing the emoji flag of the cultural term or `nil`.
    
    # Example #
    ```
@@ -388,15 +382,29 @@ public struct Veximoji {
     }
   }
   
+  /**
+   Returns an optional string containing the emoji flag of a given string if it exists.
+   
+   - parameter term: Any valid ISO 3166 alpha-2, ISO 3166-1 alpha-2, ISO 3166-2 code, or [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) raw value.
+   - returns: `String?` Either a string representing the emoji flag or `nil`.
+   
+   # Example #
+   ```
+   if let code = "UN".flag()  {
+    print("\(code)")
+   }
+   ```
+   */
+  public static func flag(term: String) -> String? {
+    return term.countryFlag() ?? term.subdivisionFlag() ?? term.internationalFlag() ?? term.culturalFlag()
+  }
+  
 }
 
 extension String {
   /**
-   Returns an optional string containing the emoji flag of a valid and legal ISO 3166 alpha-2 country code.
+   Used internally by [String.flag](x-source-tag://flag) to obtain the emoji flag of a valid and legal ISO 3166 alpha-2 country code.
    
-   The given country code is deemed valid if it is a member of [Core Foundation's](https://developer.apple.com/documentation/corefoundation) [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) collection. This condition is only met if [Veximoji.validateISO3166_1](x-source-tag://validateISO3166_1) returns `true` for the given country code.
-   
-   - parameter code: A string representing a country code, e.g. "US" for United States of America or "DO" for Dominican Republic.
    - returns: `String?` Either a string representing the emoji flag of the given ISO 3166 country code or `nil` if an invalid or illegal country code is provided.
    
    # Example #
@@ -406,16 +414,13 @@ extension String {
    }
    ```
    */
-  private func countryFlag() -> String? {
+  fileprivate func countryFlag() -> String? {
     return Veximoji.country(code: self)
   }
   
   /**
-   Returns an optional string containing the emoji flag of a valid and legal ISO 3166-2 subdivision code.
+   Used internally by [String.flag](x-source-tag://flag) to obtain the emoji flag of a valid and legal ISO 3166-2 subdivision code.
    
-   The given subdivision code is deemed valid if it is a member of the [Veximoji.ISO3166_2](x-source-tag://ISO3166_2) enum. This condition is only met if [Veximoji.validateISO3166_2](x-source-tag://validateISO3166_2) returns `true` for the given subdivision code.
-   
-   - parameter code: A string representing an ISO 3166-2 subdivision code, e.g. "GB-ENG" for England or "GB-WLS" for Wales.
    - returns: `String?` Either a string representing the emoji flag of the given subdivision code or `nil` if an invalid or illegal code is provided.
    
    # Example #
@@ -425,16 +430,13 @@ extension String {
    }
    ```
    */
-  private func subdivisionFlag() -> String? {
+  fileprivate func subdivisionFlag() -> String? {
     return Veximoji.subdivision(code: self)
   }
   
   /**
-   Returns an optional string containing the emoji flag of an exceptionally reserved ISO 3166-1 alpha-2 code.
-   
-   The provided exceptional reservation code is deemed valid if it is a member of the [Veximoji.ExceptionalReservations](x-source-tag://ExceptionalReservations) enum. This condition is only met if [Veximoji.validateExceptionalReservation](x-source-tag://validateExceptionalReservation) returns `true` for the given exceptional reservation code.
-   
-   - parameter code: A string representing an ISO 3166-1 exceptional reservation code, e.g. "EU" for the European Union or "UN" for the United Nations.
+   Used internally by [String.flag](x-source-tag://flag) to obtain the emoji flag of an exceptionally reserved ISO 3166-1 alpha-2 code.
+      
    - returns: `String?` Either a string representing the emoji flag of the given exceptional reservation code, or `nil` if an invalid or illegal code is provided.
    
    # Example #
@@ -444,16 +446,45 @@ extension String {
    }
    ```
    */
-  private func internationalFlag() -> String? {
+  fileprivate func internationalFlag() -> String? {
     return Veximoji.international(code: self)
   }
   
+  /**
+   Returns an optional string containing the emoji flag of a given cultural term associated with [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) raw values.
+      
+   - returns: `String?` Either a string representing the emoji flag of the cultural term raw value or `nil`.
+   
+   # Example #
+   ```
+   if let code = "pirate"  {
+    print("\(code)")
+   }
+   ```
+   */
+  public func culturalFlag() -> String? {
+    if let term = Veximoji.CulturalTerms.allCases.filter ({ $0.rawValue == self }).first {
+      return Veximoji.cultural(term: term)
+    } else {
+      return nil
+    }
+  }
+  
+  /**
+   Converts a text string to a corresponding emoji flag if the string exists within a [Veximoji.FlagCategory](x-source-tag://FlagCategories) category.
+   
+   - returns: `String?` Either a string representing the emoji flag or `nil`.
+   
+   # Example #
+   ```
+   if let code = "UN".flag()  {
+    print("\(code)")
+   }
+   ```
+   */
+  /// - Tag: flag
   public func flag() -> String? {
-    return (
-      self.countryFlag() == nil
-      ? (self.subdivisionFlag() == nil ? self.internationalFlag() : self.subdivisionFlag())
-      : self.countryFlag()
-    )
+    return Veximoji.flag(term: self)
   }
   
 }

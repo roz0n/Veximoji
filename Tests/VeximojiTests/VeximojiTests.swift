@@ -158,7 +158,7 @@ final class VeximojiTests: XCTestCase {
   // MARK: - String Extension Tests
   
   func testsExtensionFlagHelper() {
-    
+    let validSubdivisionCode = Veximoji.subdivision(code: <#T##String?#>)
   }
   
   // MARK: - Validation Tests
