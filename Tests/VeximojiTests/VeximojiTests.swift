@@ -155,12 +155,6 @@ final class VeximojiTests: XCTestCase {
     XCTAssertNil(nilInput, "Returns nil when an invalid code is given")
   }
   
-  // MARK: - String Extension Tests
-  
-  func testsExtensionFlagHelper() {
-    let validSubdivisionCode = Veximoji.subdivision(code: <#T##String?#>)
-  }
-  
   // MARK: - Validation Tests
   
   func testsISO3166_1Validation() {
