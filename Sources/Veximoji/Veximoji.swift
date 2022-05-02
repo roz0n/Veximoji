@@ -359,7 +359,7 @@ public struct Veximoji {
   /**
    Returns an optional string containing the emoji flag of a given cultural term associated with [Veximoji.CulturalTerms](x-source-tag://CulturalTerms).
    
-   In this context, cultural term refers to an emoji flag that does not correspond to a country or region, but rather to a cultural reference, movement, or ideology. This method receives a cultural term and sequentially appends the corresponding scalars to a string and returns it.
+   In this context, cultural term refers to an emoji flag that does not correspond to a country or region, but rather to a cultural reference, movement, or ideology.
    
    - parameter term: A valid case of [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) (e.g. `.pride` for the rainbow or "pride" flag or `.pirate` for the pirate flag otherwise known as "Jolly Roger")
    - returns: `String?` Either a string representing the emoji flag of the cultural term or `nil`.
@@ -383,7 +383,7 @@ public struct Veximoji {
   }
   
   /**
-   Returns an optional string containing the emoji flag of a given string if it exists.
+   Converts a given string to an emoji flag if the string exists within a [Veximoji.FlagCategory](x-source-tag://FlagCategories) category.
    
    - parameter term: Any valid ISO 3166 alpha-2, ISO 3166-1 alpha-2, ISO 3166-2 code, or [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) raw value.
    - returns: `String?` Either a string representing the emoji flag or `nil`.
@@ -409,7 +409,7 @@ extension String {
    
    # Example #
    ```
-   if let flag = "DO".flag()  {
+   if let flag = "DO".countryFlag()  {
     print("\(flag)")
    }
    ```
@@ -425,7 +425,7 @@ extension String {
    
    # Example #
    ```
-   if let flag = "GB-WLS".flag()  {
+   if let flag = "GB-WLS".subdivisionFlag()  {
     print("\(flag)")
    }
    ```
@@ -441,7 +441,7 @@ extension String {
    
    # Example #
    ```
-   if let flag = "EU".flag()  {
+   if let flag = "EU".internationalFlag()  {
     print("\(flag)")
    }
    ```
@@ -457,7 +457,7 @@ extension String {
    
    # Example #
    ```
-   if let code = "pirate".flag()  {
+   if let code = "pirate".culturalFlag()  {
     print("\(code)")
    }
    ```
@@ -471,7 +471,7 @@ extension String {
   }
   
   /**
-   Converts a text string to a corresponding emoji flag if the string exists within a [Veximoji.FlagCategory](x-source-tag://FlagCategories) category.
+   Converts the string to an emoji flag if the string exists within a [Veximoji.FlagCategory](x-source-tag://FlagCategories) category.
    
    - returns: `String?` Either a string representing the emoji flag or `nil`.
    
