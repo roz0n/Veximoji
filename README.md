@@ -169,14 +169,14 @@ In the context of **`Veximoji`**, *unique term* refers to an emoji flag that doe
 
 | Case  | Raw value | Flag |
 |:--|:--|:--|
-| `.pride`  | “pride” | 🏳️‍🌈 |
-| `.trans`  | “trans” | 🏳️‍⚧️ |
-| `.pirate`  | “pirate” | 🏴‍☠️ |
-| `.white`  | “white” | 🏳️ |
-| `.red`  | “red” | 🚩|
-| `.black`  | “black” | 🏴 |
-| `.crossed`  | “crossed” | 🎌 |
-| `.chequered`  | “chequered” | 🏁|
+| `.pride`  | `“pride”` | 🏳️‍🌈 |
+| `.trans`  | `“trans”` | 🏳️‍⚧️ |
+| `.pirate`  | `“pirate”` | 🏴‍☠️ |
+| `.white`  | `“white”` | 🏳️ |
+| `.red`  | `“red”` | 🚩|
+| `.black`  | `“black”` | 🏴 |
+| `.crossed`  | `“crossed”` | 🎌 |
+| `.chequered`  | `“chequered”` | 🏁|
 
 #### Usage
 
