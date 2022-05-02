@@ -41,7 +41,7 @@ Package installation follows traditional Swift conventions.
 
 #### Manual Installation
 
-Add **`package(url: "https://github.com/roz0n/Veximoji.git", from: "2.0.0")`**  to your application's **`Package.swift`** file.
+- Add **`package(url: "https://github.com/roz0n/Veximoji.git", from: "2.0.0")`**  to your application's **`Package.swift`** file.
 
 #### Via Xcode
 
@@ -57,7 +57,7 @@ CocoaPods support is not yet available.
 
 ## API
 
-### tl:dr;
+# **tl:dr**;
 
 ```swift
 let usa = "us".flag() // "🇺🇸"
@@ -88,15 +88,18 @@ Converts any string to its emoji flag counterpart if the string exists within a 
 
 ```swift
 if let flag = "UN".flag()  {
-	print("\(flag)") // "🇺🇳"
+  print("\(flag)") // "🇺🇳"
 }
 ```
 
 ```swift
 if let flag = Veximoji.flag("UN") {
-	print("\(flag)") // "🇺🇳"
+  print("\(flag)") // "🇺🇳"
 }
 ```
+---
+
+**For most conversions, the above will generally suffice. For convenience's sake, `Veximoji` also exposes its internal conversion and validation methods publically:**
 
 ### `country(code:) -> String?`
 
@@ -161,7 +164,7 @@ if let flag = Veximoji.subdivision(code: "UN")  {
 
 ### `unique(term:) -> String?`
 
-In the context of **`Veximoji`**, *unique term* refers to an emoji flag that does not correspond to a country or region, but rather to a unique reference, movement, or ideology. For example, **`.pride`** refers to the "rainbow" or "pride" flag.
+In the context of **`Veximoji`**, *unique term* refers to an emoji flag that does not correspond to a country or region, but rather to a unique reference, movement, or ideology. For example, **`.pride`** refers to the rainbow or `"pride"` flag.
 
 **`Veximoji`** contains the correct Unicode scalars needed to accurately render each emoji flag. Unlike the other flag category methods, it does not expect a string as input but instead references the publicly exposed **`UniqueTerms`** enum (which also supports raw values).
 
@@ -223,7 +226,7 @@ if Veximoji.validateISO3166_2(code: code)  {
 ### `validateExceptionalReservation(code:) -> Bool`
 
 - Returns a boolean indicating whether a given string is a valid ISO 3166-1 exceptionally reserved code.
-- Currently, **`Veximoji`** only supports `EU` and `UN` exceptionally reserved codes as they are the only codes with iOS-supported emoji flags
+- Currently, **`Veximoji`** only supports `"EU"` and `"UN"` exceptionally reserved codes as they are the only codes with iOS-supported emoji flags
 
 #### Usage
 
