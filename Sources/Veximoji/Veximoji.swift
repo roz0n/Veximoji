@@ -24,16 +24,16 @@ public struct Veximoji {
     case country = "country"
     case subdivision = "subdivision"
     case international = "international"
-    case cultural = "cultural"
+    case unique = "unique"
   }
   
   /**
-   In this context, cultural term refers to an emoji flag that does not correspond to a country or region, but rather to a cultural reference, movement, or ideology.
+   In this context, unique term refers to an emoji flag that does not correspond to a country or region, but rather to a unique reference, movement, or ideology.
    
-   The cultural term enum does not contain raw values. Its usage within `Veximoji` depends on the [Veximoji.culturalTermScalars](x-source-tag://culturalTermScalars) member which maps each enum case to an array of `UInt32` integers.
+   The unique term enum does not contain raw values. Its usage within `Veximoji` depends on the [Veximoji.uniqueTermScalars](x-source-tag://uniqueTermScalars) member which maps each enum case to an array of `UInt32` integers.
    */
-  /// - Tag: CulturalTerms
-  public enum CulturalTerms: String, CaseIterable {
+  /// - Tag: UniqueTerms
+  public enum UniqueTerms: String, CaseIterable {
     case pride = "pride"
     case trans = "trans"
     case pirate = "pirate"
@@ -68,12 +68,12 @@ public struct Veximoji {
   }
   
   /**
-   Contains Unicode scalars for each case of the [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) enum. Each scalar is a `UInt32` value that when sequentially appended to a string's `unicodeScalars` property composes the corresponding emoji flag.
+   Contains Unicode scalars for each case of the [Veximoji.UniqueTerms](x-source-tag://UniqueTerms) enum. Each scalar is a `UInt32` value that when sequentially appended to a string's `unicodeScalars` property composes the corresponding emoji flag.
    
    Public access to this dictionary is restricted. To access the scalars of a particular emoji flag, use the `unicodeScalars` property of its string.
    */
-  /// - Tag: culturalTermScalars
-  fileprivate static let culturalTermScalars: [CulturalTerms: [UInt32]] = [
+  /// - Tag: uniqueTermScalars
+  fileprivate static let uniqueTermScalars: [UniqueTerms: [UInt32]] = [
     .pride: [UInt32(127987), UInt32(65039), UInt32(8205), UInt32(127752)],
     .trans: [UInt32(127987), UInt32(65039), UInt32(8205), UInt32(9895), UInt32(65039)],
     .pirate: [UInt32(127988), UInt32(8205), UInt32(9760), UInt32(65039)],
@@ -143,17 +143,17 @@ public struct Veximoji {
   }
   
   /**
-   Computes and returns raw values of all [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) enum cases.
+   Computes and returns raw values of all [Veximoji.UniqueTerms](x-source-tag://UniqueTerms) enum cases.
    */
-  public static var culturalTerms: [String] {
+  public static var uniqueTerms: [String] {
     get {
-      return CulturalTerms.allCases.map { $0.rawValue }
+      return UniqueTerms.allCases.map { $0.rawValue }
     }
   }
   
-  public static var culturalScalars: [CulturalTerms: [UInt32]] {
+  public static var uniqueScalars: [UniqueTerms: [UInt32]] {
     get {
-      return culturalTermScalars
+      return uniqueTermScalars
     }
   }
   
@@ -162,7 +162,7 @@ public struct Veximoji {
   /// Used internally to create and return an emoji flag based on the `type` property of the given [Veximoji.FlagCategory](x-source-tag://FlagCategory).
   /// - Parameters:
   ///   - category: A class that inherits from [Veximoji.FlagCategory](x-source-tag://FlagCategory)
-  ///   - query: A unique indentifier for a specific flag (e.g., a ISO 3166 alpha-2 country or reserved code, an ISO 3166-2 subdivision code, or a case of the [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) enum).
+  ///   - query: A unique indentifier for a specific flag (e.g., a ISO 3166 alpha-2 country or reserved code, an ISO 3166-2 subdivision code, or a case of the [Veximoji.UniqueTerms](x-source-tag://UniqueTerms) enum).
   /// - Returns: `Bool` Either a string containing the corresponding flag emoji, or `nil`.
   /// - Tag: getFlag
   fileprivate static func getFlag<T: FlagCategory>(category: T, query: String) -> String? {
@@ -196,7 +196,7 @@ public struct Veximoji {
         }
         
         return emojiString
-      case .cultural:
+      case .unique:
         guard let scalars = category.scalars else { return nil }
         guard let values = scalars[query] else { return nil }
         guard !values.isEmpty else { return nil }
@@ -348,8 +348,9 @@ public struct Veximoji {
    */
   public static func international(code internationalCode: String?) -> String? {
     if let internationalCode = internationalCode {
-      let category =  FlagCategory(type: .international, validator: Veximoji.validateExceptionalReservation(code:), scalars: Veximoji.exceptionalReservationScalars)
-      
+      let category =  FlagCategory(type: .international,
+                                   validator: Veximoji.validateExceptionalReservation(code:),
+                                   scalars: Veximoji.exceptionalReservationScalars)
       return getFlag(category: category, query: internationalCode)
     } else {
       return nil
@@ -357,25 +358,25 @@ public struct Veximoji {
   }
   
   /**
-   Returns an optional string containing the emoji flag of a given cultural term associated with [Veximoji.CulturalTerms](x-source-tag://CulturalTerms).
+   Returns an optional string containing the emoji flag of a given unique term associated with [Veximoji.UniqueTerms](x-source-tag://UniqueTerms).
    
-   In this context, cultural term refers to an emoji flag that does not correspond to a country or region, but rather to a cultural reference, movement, or ideology.
+   In this context, unique term refers to an emoji flag that does not correspond to a country or region, but rather to a unique reference, movement, or ideology.
    
-   - parameter term: A valid case of [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) (e.g. `.pride` for the rainbow or "pride" flag or `.pirate` for the pirate flag otherwise known as "Jolly Roger")
-   - returns: `String?` Either a string representing the emoji flag of the cultural term or `nil`.
+   - parameter term: A valid case of [Veximoji.UniqueTerms](x-source-tag://UniqueTerms) (e.g. `.pride` for the rainbow or "pride" flag or `.pirate` for the pirate flag otherwise known as "Jolly Roger")
+   - returns: `String?` Either a string representing the emoji flag of the unique term or `nil`.
    
    # Example #
    ```
-   if let code = Veximoji.cultural(named: .pirate)  {
+   if let code = Veximoji.unique(named: .pirate)  {
     print("\(code)")
    }
    ```
    */
-  public static func cultural(term: CulturalTerms?) -> String? {
+  public static func unique(term: UniqueTerms?) -> String? {
     if let term = term {
-      guard let scalars = culturalTermScalars[term] else { return nil }
+      guard let scalars = uniqueTermScalars[term] else { return nil }
       
-      let category = FlagCategory(type: .cultural, validator: nil, scalars: [term.rawValue: scalars])
+      let category = FlagCategory(type: .unique, validator: nil, scalars: [term.rawValue: scalars])
       return getFlag(category: category, query: term.rawValue)
     } else {
       return nil
@@ -385,7 +386,7 @@ public struct Veximoji {
   /**
    Converts a given string to an emoji flag if the string exists within a [Veximoji.FlagCategory](x-source-tag://FlagCategories) category.
    
-   - parameter term: Any valid ISO 3166 alpha-2, ISO 3166-1 alpha-2, ISO 3166-2 code, or [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) raw value.
+   - parameter term: Any valid ISO 3166 alpha-2, ISO 3166-1 alpha-2, ISO 3166-2 code, or [Veximoji.UniqueTerms](x-source-tag://UniqueTerms) raw value.
    - returns: `String?` Either a string representing the emoji flag or `nil`.
    
    # Example #
@@ -396,7 +397,7 @@ public struct Veximoji {
    ```
    */
   public static func flag(term: String) -> String? {
-    return term.countryFlag() ?? term.subdivisionFlag() ?? term.internationalFlag() ?? term.culturalFlag()
+    return term.countryFlag() ?? term.subdivisionFlag() ?? term.internationalFlag() ?? term.uniqueFlag()
   }
   
 }
@@ -451,20 +452,20 @@ extension String {
   }
   
   /**
-   Used internally by [String.flag](x-source-tag://flag) to obtain the emoji flag of a given cultural term associated with [Veximoji.CulturalTerms](x-source-tag://CulturalTerms) raw values.
+   Used internally by [String.flag](x-source-tag://flag) to obtain the emoji flag of a given unique term associated with [Veximoji.UniqueTerms](x-source-tag://UniqueTerms) raw values.
       
-   - returns: `String?` Either a string representing the emoji flag of the cultural term raw value or `nil`.
+   - returns: `String?` Either a string representing the emoji flag of the unique term raw value or `nil`.
    
    # Example #
    ```
-   if let code = "pirate".culturalFlag()  {
+   if let code = "pirate".uniqueFlag()  {
     print("\(code)")
    }
    ```
    */
-  fileprivate func culturalFlag() -> String? {
-    if let term = Veximoji.CulturalTerms.allCases.filter ({ $0.rawValue == self }).first {
-      return Veximoji.cultural(term: term)
+  fileprivate func uniqueFlag() -> String? {
+    if let term = Veximoji.UniqueTerms.allCases.filter ({ $0.rawValue == self }).first {
+      return Veximoji.unique(term: term)
     } else {
       return nil
     }

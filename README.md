@@ -11,14 +11,10 @@
 ---
 
 <p align="center" width="100%">
-  Swiftly convert ISO country codes (incl. subdivisions and exceptional reservations) and cultural terms to all 269 iOS-supported emoji flags without hassle.  
+  Swiftly convert ISO country codes (incl. subdivisions and exceptional reservations) and unique terms to all 269 iOS-supported emoji flags without hassle.
 </p>
 
-<br />
-
-<div align="center">
-  <img src="./Diagram.png"> 
-</div>
+---
 
 <br />
 
@@ -64,7 +60,7 @@ The **`Veximoji`** API is very concise and well-documented. It supports four dif
 | `country` | flags for countries with an ISO 3611-1 alpha-2 code |`JP`|
 | `subdivision` | flags for subdivisions with an ISO 3611-2 code | `GB-ENG` |
 | `international` | flags for exceptionally reserved ISO 3166-1 alpha-2 codes | `EU` or `UN` |
-| `cultural` | flags not related to individual countries or subdivisions | `.pirate` |
+| `unique` | flags not related to individual countries or subdivisions | `.pirate` |
 
 Each emoji flag category has a method to obtain its flags.
 
@@ -131,11 +127,11 @@ if let flag = Veximoji.subdivision(code: "UN")  {
 }
 ```
 
-#### `cultural(term:) -> String?`
+#### `unique(term:) -> String?`
 
-In the context of **`Veximoji`**, *cultural term* refers to an emoji flag that does not correspond to a country or region, but rather to a cultural reference, movement, or ideology. For example, **`.pride`** refers to the "rainbow" or "pride" flag.
+In the context of **`Veximoji`**, *unique term* refers to an emoji flag that does not correspond to a country or region, but rather to a unique reference, movement, or ideology. For example, **`.pride`** refers to the "rainbow" or "pride" flag.
 
-**`Veximoji`** contains the correct Unicode scalars needed to accurately render each emoji flag. Unlike the other flag category methods, it does not expect a string as input but instead references the publicly exposed **`CulturalTerms`** enum (which also supports raw values).
+**`Veximoji`** contains the correct Unicode scalars needed to accurately render each emoji flag. Unlike the other flag category methods, it does not expect a string as input but instead references the publicly exposed **`UniqueTerms`** enum (which also supports raw values).
 
 ##### Supported Cases
 
@@ -153,7 +149,7 @@ In the context of **`Veximoji`**, *cultural term* refers to an emoji flag that d
 ##### Usage
 
 ```swift
-if let flag = Veximoji.cultural(term: .pride)  {
+if let flag = Veximoji.unique(term: .pride)  {
   print("\(flag)") // "🏳️‍🌈"
 }
 ```
