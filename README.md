@@ -41,7 +41,7 @@ Package installation follows traditional Swift conventions.
 
 #### Manual Installation
 
-Add **`package(url: "https://github.com/roz0n/Veximoji.git", from: "2.0.0")`**  to your application's **`Package.swift`** file.
+- Add **`package(url: "https://github.com/roz0n/Veximoji.git", from: "2.0.0")`**  to your application's **`Package.swift`** file.
 
 #### Via Xcode
 
@@ -57,7 +57,7 @@ CocoaPods support is not yet available.
 
 ## API
 
-### tl:dr;
+# **tl:dr**;
 
 ```swift
 let usa = "us".flag() // "🇺🇸"
@@ -97,6 +97,9 @@ if let flag = Veximoji.flag("UN") {
   print("\(flag)") // "🇺🇳"
 }
 ```
+---
+
+**For most conversions, the above will generally suffice. For convenience's sake, `Veximoji` also exposes its internal conversion and validation methods publically:**
 
 ### `country(code:) -> String?`
 
