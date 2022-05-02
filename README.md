@@ -154,7 +154,18 @@ if let flag = Veximoji.unique(term: .pride)  {
 }
 ```
 
+#### `flag(term:) -> String?`
 
+- Converts a given string to an emoji flag if the string exists within a `FlagCategory` category. 
+- This method is the most succint way to convert a string to its emoji flag form.
+
+##### Usage
+
+```swift
+if let flag = "UN".flag()  {
+	print("\(flag)") // "🇺🇳"
+}
+```
 
 ### Code Validation Methods
 
@@ -211,12 +222,6 @@ if Veximoji.validateExceptionalReservation(code: euCode)  {
 }
 ```
 
-## Roadmap
-
-- ~~Add support for exceptional reservations~~
-- ~~Add support for subdivisions~~
-- CocoaPods support
-- Continually support new emoji flags as they are added to the Unicode standard and supported by Apple development platforms
 
 ## Support
 

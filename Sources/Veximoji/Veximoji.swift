@@ -225,9 +225,7 @@ public struct Veximoji {
    
    # Example #
    ```
-   let code = "do"
-   
-   if Veximoji.validateISO3166_1(code: code)  {
+   if Veximoji.validateISO3166_1(code: "do")  {
     print("Code is valid")
    }
    ```
@@ -247,9 +245,7 @@ public struct Veximoji {
    
    # Example #
    ```
-   let code = "gb-eng"
-   
-   if Veximoji.validateISO3166_2(code: code)  {
+   if Veximoji.validateISO3166_2(code: "gb-eng")  {
     print("Code is valid")
    }
    ```
@@ -269,9 +265,7 @@ public struct Veximoji {
    
    # Example #
    ```
-   let code = "eu"
-   
-   if Veximoji.validateExceptionalReservation(code: code)  {
+   if Veximoji.validateExceptionalReservation(code: "eu")  {
     print("Code is valid")
    }
    ```
@@ -293,8 +287,8 @@ public struct Veximoji {
    
    # Example #
    ```
-   if let code = Veximoji.country(code: "DO")  {
-    print("\(code)")
+   if let flag = Veximoji.country(code: "DO")  {
+    print("\(flag)")
    }
    ```
    */
@@ -317,8 +311,8 @@ public struct Veximoji {
    
    # Example #
    ```
-   if let code = Veximoji.subdivision(code: "GB-WLS")  {
-    print("\(code)")
+   if let flag = Veximoji.subdivision(code: "GB-WLS")  {
+    print("\(flag)")
    }
    ```
    */
@@ -341,8 +335,8 @@ public struct Veximoji {
    
    # Example #
    ```
-   if let code = Veximoji.international(code: "EU")  {
-    print("\(code)")
+   if let flag = Veximoji.international(code: "EU")  {
+    print("\(flag)")
    }
    ```
    */
@@ -367,8 +361,8 @@ public struct Veximoji {
    
    # Example #
    ```
-   if let code = Veximoji.unique(named: .pirate)  {
-    print("\(code)")
+   if let flag = Veximoji.unique(named: .pirate)  {
+    print("\(flag)")
    }
    ```
    */
@@ -391,8 +385,8 @@ public struct Veximoji {
    
    # Example #
    ```
-   if let code = "UN".flag()  {
-    print("\(code)")
+   if let flag = "UN".flag()  {
+    print("\(flag)")
    }
    ```
    */
@@ -458,8 +452,8 @@ extension String {
    
    # Example #
    ```
-   if let code = "pirate".uniqueFlag()  {
-    print("\(code)")
+   if let flag = "pirate".uniqueFlag()  {
+    print("\(flag)")
    }
    ```
    */
@@ -478,8 +472,8 @@ extension String {
    
    # Example #
    ```
-   if let code = "UN".flag()  {
-    print("\(code)")
+   if let flag = "UN".flag()  {
+    print("\(flag)")
    }
    ```
    */
