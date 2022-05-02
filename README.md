@@ -49,7 +49,7 @@ Once the package finishes downloading, should now see it listed in the Project N
 
 ### CocoaPods
 
-CocoaPods support is not yet available, but it's on the [**roadmap**](#roadmap).
+CocoaPods support is not yet available.
 
 ## API
 
@@ -57,6 +57,9 @@ CocoaPods support is not yet available, but it's on the [**roadmap**](#roadmap).
 
 ```swift
 let usa = "us".flag() // "🇺🇸"
+let england = "gb-eng".flag() // "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+let un = "un".flag() // "🇺🇳"
+let chequered = "chequered".flag() // "🏁"
 ```
 
 The **`Veximoji`** API is very concise and well-documented. It supports four different emoji flag categories:
@@ -73,8 +76,9 @@ The **`Veximoji`** API is very concise and well-documented. It supports four dif
 
 Converts any string to its emoji flag counterpart if the string exists within a `FlagCategory`.
 
+- This method is also provided as an extension to `String` for brevity.
 - This is the most succinct way to convert a string to its emoji flag form.
-- This method is also included as an extension to `String` for brevity.
+- Returns either a string representing the emoji flag or `nil`.
 
 #### Usage
 
