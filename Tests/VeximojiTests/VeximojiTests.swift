@@ -76,8 +76,10 @@ final class VeximojiTests: XCTestCase {
     for term in Veximoji.CulturalTerms.allCases {
       let scalars = Veximoji.culturalScalars[term]
       
-      XCTAssertNotNil(scalars, "Each cultural term has an associated entry in the scalars dictionary")
-      XCTAssertFalse(scalars!.isEmpty, "Each entry in the scalars dictionary is populated")
+      XCTAssertNotNil(scalars,
+                      "Each cultural term has an associated entry in the scalars dictionary")
+      XCTAssertFalse(scalars!.isEmpty,
+                     "Each entry in the scalars dictionary is populated")
     }
   }
   
@@ -87,15 +89,16 @@ final class VeximojiTests: XCTestCase {
     let term: Veximoji.CulturalTerms = .pirate
     let validInput = Veximoji.cultural(term: .pirate)
     let nilInput = Veximoji.cultural(term: nil)
-    
     let validInputScalars = validInput!.unicodeScalars.first!
     
     XCTAssertNotNil(validInputScalars)
     
     XCTAssertTrue(type(of: term) == Veximoji.CulturalTerms.self)
-    XCTAssertTrue(validInputScalars.properties.isEmoji, "Returns an emoji when a valid country code is given")
+    XCTAssertTrue(validInputScalars.properties.isEmoji,
+                  "Returns an emoji when a valid country code is given")
     
-    XCTAssertNil(nilInput, "Returns nil when nil is given")
+    XCTAssertNil(nilInput,
+                 "Returns nil when nil is given")
   }
   
   func testsCountryFlagEmoji() {
@@ -110,8 +113,10 @@ final class VeximojiTests: XCTestCase {
     XCTAssertNotNil(validInputScalars)
     XCTAssertNotNil(lowercasedValidInputScalars)
     
-    XCTAssertTrue(validInputScalars.properties.isEmoji, "Returns an emoji when a valid country code is given")
-    XCTAssertTrue(lowercasedValidInputScalars.properties.isEmoji, "Returns an emoji when a valid lowercased country code is given")
+    XCTAssertTrue(validInputScalars.properties.isEmoji,
+                  "Returns an emoji when a valid country code is given")
+    XCTAssertTrue(lowercasedValidInputScalars.properties.isEmoji,
+                  "Returns an emoji when a valid lowercased country code is given")
     
     XCTAssertNil(invalidInput, "Returns nil when an invalid country code is given")
     XCTAssertNil(nilInput, "Returns nil when nil is given")
@@ -129,8 +134,10 @@ final class VeximojiTests: XCTestCase {
     XCTAssertNotNil(validInputScalars)
     XCTAssertNotNil(lowercasedValidInputScalars)
     
-    XCTAssertTrue(validInputScalars.properties.isEmoji, "Returns an emoji when a valid country code is given")
-    XCTAssertTrue(lowercasedValidInputScalars.properties.isEmoji, "Returns an emoji when a valid lowercased country code is given")
+    XCTAssertTrue(validInputScalars.properties.isEmoji,
+                  "Returns an emoji when a valid country code is given")
+    XCTAssertTrue(lowercasedValidInputScalars.properties.isEmoji,
+                  "Returns an emoji when a valid lowercased country code is given")
     
     XCTAssertNil(invalidInput, "Returns nil when an invalid code is given")
     XCTAssertNil(nilInput, "Returns nil when nil is given")
@@ -148,8 +155,10 @@ final class VeximojiTests: XCTestCase {
     XCTAssertNotNil(validInputScalars)
     XCTAssertNotNil(lowercasedValidInputScalars)
     
-    XCTAssertTrue(validInputScalars.properties.isEmoji, "Returns an emoji when a valid international code is given")
-    XCTAssertTrue(lowercasedValidInputScalars.properties.isEmoji, "Returns an emoji when a valid lowercased international code is given")
+    XCTAssertTrue(validInputScalars.properties.isEmoji,
+                  "Returns an emoji when a valid international code is given")
+    XCTAssertTrue(lowercasedValidInputScalars.properties.isEmoji,
+                  "Returns an emoji when a valid lowercased international code is given")
     
     XCTAssertNil(invalidInput, "Returns nil when an invalid code is given")
     XCTAssertNil(nilInput, "Returns nil when an invalid code is given")
@@ -161,30 +170,35 @@ final class VeximojiTests: XCTestCase {
     XCTAssertNotNil(validCountryCode)
     XCTAssertNotNil(invalidCode)
     
-    XCTAssertTrue(Veximoji.validateISO3166_1(code: validCountryCode!), "Returns true when a valid country code is given")
-    XCTAssertTrue(Veximoji.validateISO3166_1(code: validCountryCode!.lowercased()), "Returns true when a valid lowercased country code is given")
-    
-    XCTAssertFalse(Veximoji.validateISO3166_1(code: invalidCode!), "Returns false when an invalid code is given")
+    XCTAssertTrue(Veximoji.validateISO3166_1(code: validCountryCode!),
+                  "Returns true when a valid country code is given")
+    XCTAssertTrue(Veximoji.validateISO3166_1(code: validCountryCode!.lowercased()),
+                  "Returns true when a valid lowercased country code is given")
+    XCTAssertFalse(Veximoji.validateISO3166_1(code: invalidCode!),
+                   "Returns false when an invalid code is given")
   }
   
   func testsISO3166_2Validation() {
     XCTAssertNotNil(validSubdivisonCode)
     XCTAssertNotNil(invalidCode)
     
-    XCTAssertTrue(Veximoji.validateISO3166_2(code: validSubdivisonCode!), "Returns true when a valid subdivision code is given")
-    XCTAssertTrue(Veximoji.validateISO3166_2(code: validSubdivisonCode!.lowercased()), "Returns true when a valid lowercased subdivision code is given")
-    
-    XCTAssertFalse(Veximoji.validateISO3166_2(code: invalidCode!), "Returns false when an invalid code is given")
+    XCTAssertTrue(Veximoji.validateISO3166_2(code: validSubdivisonCode!),
+                  "Returns true when a valid subdivision code is given")
+    XCTAssertTrue(Veximoji.validateISO3166_2(code: validSubdivisonCode!.lowercased()),
+                  "Returns true when a valid lowercased subdivision code is given")
+    XCTAssertFalse(Veximoji.validateISO3166_2(code: invalidCode!),
+                   "Returns false when an invalid code is given")
   }
   
   func testsExceptionalReservationValidation() {
     XCTAssertNotNil(validInternationalCode)
     XCTAssertNotNil(invalidCode)
     
-    XCTAssertTrue(Veximoji.validateExceptionalReservation(code: validInternationalCode!), "Returns true when a valid international code is given")
+    XCTAssertTrue(Veximoji.validateExceptionalReservation(code: validInternationalCode!),
+                  "Returns true when a valid international code is given")
     XCTAssertTrue(Veximoji.validateExceptionalReservation(code: validInternationalCode!.lowercased()), "Returns true when a valid lowercased international code is given")
-    
-    XCTAssertFalse(Veximoji.validateExceptionalReservation(code: invalidCode!), "Returns false when an invalid code is given")
+    XCTAssertFalse(Veximoji.validateExceptionalReservation(code: invalidCode!),
+                   "Returns false when an invalid code is given")
   }
   
 }
