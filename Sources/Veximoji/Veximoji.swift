@@ -1,5 +1,10 @@
 import Foundation
 
+public var EmojiCountryCodes = Veximoji.countryCodes
+public var EmojiSubdivisionCodes = Veximoji.subdivisionCodes
+public var EmojiInternationalCodes = Veximoji.internationalCodes
+public var EmojiFlagUniqueTerms = Veximoji.uniqueTerms
+
 /// Used to represent an emoji flag category. In the context of `Veximoji`, this class used internally to represent each case of the [Veximoji.FlagCategories](x-source-tag://FlagCategories) enum when calling [Veximoji.getFlag](x-source-tag://getFlag).
 /// - Tag: FlagCategory
 fileprivate class FlagCategory {
