@@ -1,5 +1,5 @@
 <div align="center" width="100%">
-  <img src="./Logotype.png"> 
+  <img src="./Logotype.png">
 </div>
 
 <br />
@@ -15,7 +15,7 @@
 ---
 
 <p align="center" width="100%">
-  Swiftly convert ISO country codes (incl. subdivisions and exceptional reservations) and other unique terms to emoji flags without hassle.
+  Swiftly convert country codes and other unique strings to emoji flags
 </p>
 
 ---
@@ -25,13 +25,16 @@
 > **vex·il·lol·o·gy** (/ˌveksəˈläləjē/)
 > _noun_: the study of flags.
 
-From a developer's perspective, emojis are great. They're natively supported and instantly recognizable icons with a variety of use cases.
-
-Working with emojis in Swift is not as _swifty_ as it could be, though.
+```swift
+let usa = "us".flag() // "🇺🇸"
+let england = "gb-eng".flag() // "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+let un = "un".flag() // "🇺🇳"
+let chequered = "chequered".flag() // "🏁"
+```
 
 ## Demo
 
-Checkout the [**`Veximoji-Example`**](https://github.com/roz0n/Veximoji-Example) iOS app.
+Check out the [**`Veximoji-Example`**](https://github.com/roz0n/Veximoji-Example) iOS app.
 
 ## Installation
 
@@ -53,9 +56,9 @@ Once the package finishes downloading, should now see it listed in the Project N
 
 ### CocoaPods
 
-CocoaPods support is not yet available.
+CocoaPods support is in the works.
 
-## API
+# API
 
 # **tl:dr**;
 
@@ -75,11 +78,12 @@ The **`Veximoji`** API is very concise and well-documented. It supports four dif
 | `international` | flags for exceptionally reserved ISO 3166-1 alpha-2 codes | `EU` or `UN`            |
 | `unique`        | flags not related to individual countries or subdivisions | `.pirate` or `"pirate"` |
 
-### `flag(term:) -> String?`
+---
+
+### `String.flag(term:) -> String?`
 
 Converts any string to its emoji flag counterpart if the string exists within a `FlagCategory`.
 
-- This method is also provided as an extension to `String` for brevity.
 - This is the most succinct way to convert a string to its emoji flag form.
 - Returns either a string representing the emoji flag or `nil`.
 
@@ -91,15 +95,7 @@ if let flag = "UN".flag()  {
 }
 ```
 
-```swift
-if let flag = Veximoji.flag("UN") {
-  print("\(flag)") // "🇺🇳"
-}
-```
-
 ---
-
-**For most conversions, the above will generally suffice. For convenience's sake, `Veximoji` also exposes its internal conversion and validation methods publically:**
 
 ### `country(code:) -> String?`
 
@@ -115,6 +111,8 @@ if let flag = Veximoji.country(code: "DO")  {
   print("\(flag)") // "🇩🇴"
 }
 ```
+
+---
 
 ### `subdivision(code:) -> String?`
 
@@ -140,6 +138,8 @@ if let flag = Veximoji.subdivision(code: "GB-SCT")  {
 }
 ```
 
+---
+
 ### `international(code:) -> String?`
 
 - Used to render the flag of an exceptionally reserved ISO 3166-1 alpha-2 code
@@ -162,9 +162,7 @@ if let flag = Veximoji.subdivision(code: "UN")  {
 }
 ```
 
---
-
-### `unique(term:) -> String?`
+---
 
 ### `unique(term:) -> String?`
 
@@ -193,9 +191,11 @@ if let flag = Veximoji.unique(term: .pride)  {
 }
 ```
 
-### Code Validation Methods
+# Validators
 
 In the event you would like to validate any of the above codes or terms manually for whatever reason, **`Veximoji`** exposes its validation methods for your convenience.
+
+---
 
 ### `validateISO3166_1(code:) -> Bool`
 
@@ -212,6 +212,8 @@ if Veximoji.validateISO3166_1(code: code)  {
 }
 ```
 
+---
+
 ### `validateISO3166_2(code:) -> Bool`
 
 - Returns a boolean indicating whether a given string is a valid ISO 3611-2 subdivision code
@@ -226,6 +228,8 @@ if Veximoji.validateISO3166_2(code: code)  {
   print("Code is valid")
 }
 ```
+
+---
 
 ### `validateExceptionalReservation(code:) -> Bool`
 
