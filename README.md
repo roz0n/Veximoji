@@ -13,9 +13,7 @@
 
 </div>
 
-# Getting Started
-
-## Usage
+# Usage
 
 ```swift
 let usa = "us".flag() // "🇺🇸"
@@ -49,8 +47,6 @@ Once the package finishes downloading, should now see it listed in the Project N
 ### CocoaPods
 
 CocoaPods support is in the works.
-
-<br />
 
 # API
 
@@ -136,7 +132,7 @@ In the event you would like to validate any of the above codes or terms manually
 ### `validateISO3166_1(code:) -> Bool`
 
 - Returns a boolean indicating whether a given string is a supported ISO 3611 alpha-2 country code by checking whether or not it is contained within the **`CFLocaleCopyISOCountryCodes`** collection
-- For more information on supported country codes visit the [**CFLocaleCopyISOCountryCodes**](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) page in the Apple Developer Documentation
+- For more information on supported country codes visit the [**CFLocaleCopyISOCountryCodes**](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes) page of the Apple Developer Documentation
 
 ### `validateISO3166_2(code:) -> Bool`
 
