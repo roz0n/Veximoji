@@ -28,7 +28,7 @@ Check out the [**`Veximoji-Example`**](https://github.com/roz0n/Veximoji-Example
 
 ## Installation
 
-Package installation follows traditional Swift conventions.
+Simply follow standard SPM conventions:
 
 ### Swift Package Manager
 
@@ -131,7 +131,7 @@ Each of the above categories are available in array-form via publicly exposed sh
 
 ## Validators
 
-In the event you would like to validate any of the above codes or terms manually for whatever reason, **`Veximoji`** exposes its validation methods for your convenience.
+In the event you would like to validate any of the above manually, validation methods are publicly exposed for your convenience.
 
 ### `validateISO3166_1(code:) -> Bool`
 
