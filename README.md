@@ -54,7 +54,7 @@ CocoaPods support is in the works.
 
 # API
 
-The **`Veximoji`** API is very concise and well-documented internally. It organizes emoji flags into four distinct categories:
+The **`Veximoji`** API is very concise and well-documented. It organizes emoji flags into four distinct categories:
 
 | Category        | Definition                                                | Example                 |
 | :-------------- | :-------------------------------------------------------- | :---------------------- |
@@ -63,7 +63,23 @@ The **`Veximoji`** API is very concise and well-documented internally. It organi
 | `international` | flags for exceptionally reserved ISO 3166-1 alpha-2 codes | `EU` or `UN`            |
 | `unique`        | flags not related to individual countries or subdivisions | `.pirate` or `"pirate"` |
 
-## Emoji flag methods
+## Categories
+
+Each of the above categories are available in array-form via publicly exposed short-hand variables:
+
+### `EmojiFlagCountryCodes: [String]`
+
+- Computes and returns all supported [ISO 3166-1](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) country codes.
+
+### `EmojiFlagSubdivisionCodes: [String]`
+
+- Computes and returns all supported [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision codes.
+
+### `EmojiFlagInternationalCodes: [String]`
+
+- Computes and returns all supported exceptionally reserved [ISO 3166-1](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) codes.
+
+## Helpers
 
 ### `String.flag(term:) -> String?`
 
