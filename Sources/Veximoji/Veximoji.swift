@@ -10,26 +10,26 @@ public typealias EmojiFlagCategory = Veximoji.FlagCategories
  A country code is supported if it is a member of [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes).
  */
 /// - Tag: EmojiFlagCountryCodes
-public var EmojiFlagCountryCodes = Veximoji.countryCodes
+public let EmojiFlagCountryCodes = Veximoji.countryCodes
 /**
  Computes and returns all supported [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision codes.
  
  For more information on subdivision codes see [this Wikipedia article](https://en.wikipedia.org/wiki/ISO_3166-2).
  */
 /// - Tag: EmojiFlagSubdivisionCodes
-public var EmojiFlagSubdivisionCodes = Veximoji.subdivisionCodes
+public let EmojiFlagSubdivisionCodes = Veximoji.subdivisionCodes
 /**
  Computes and returns all supported exceptionally reserved [ISO 3166-1](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) codes.
  
  For more information on exceptional reservation codes see [this Wikipedia article](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Exceptional_reservations).
  */
 /// - Tag: EmojiFlagInternationalCodes
-public var EmojiFlagInternationalCodes = Veximoji.internationalCodes
+public let EmojiFlagInternationalCodes = Veximoji.internationalCodes
 /**
  Computes and returns the all [UniqueTerms](x-source-tag://UniqueTerms) as raw values.
  */
 /// - Tag: EmojiFlagUniqueTerms
-public var EmojiFlagUniqueTerms = Veximoji.uniqueTerms
+public let EmojiFlagUniqueTerms = Veximoji.uniqueTerms
 
 /// Used internally to represent an emoji flag category.
 /// - Tag: FlagCategory

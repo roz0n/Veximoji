@@ -63,6 +63,10 @@ The **`Veximoji`** API is very concise and well-documented. It organizes emoji f
 
 Each of the above categories are available in array-form via publicly exposed short-hand variables:
 
+### `typealias EmojiFlagCategory`
+
+- A typealias of `Veximoji.FlagCategories`, an enum representing the above categories.
+
 ### `EmojiFlagCountryCodes: [String]`
 
 - Computes and returns all supported [ISO 3166-1](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) country codes.
