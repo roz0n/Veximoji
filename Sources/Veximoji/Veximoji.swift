@@ -1,18 +1,43 @@
 import Foundation
 
-public var EmojiCountryCodes = Veximoji.countryCodes
-public var EmojiSubdivisionCodes = Veximoji.subdivisionCodes
-public var EmojiInternationalCodes = Veximoji.internationalCodes
+/// A typealias of  [FlagCategories](x-source-tag://FlagCategories), an enum representing all emoji flag categories.
+public typealias EmojiFlagCategory = Veximoji.FlagCategories
+
+/**
+ Computes and returns all supported [ISO 3166-1](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) country codes.
+ 
+ A country code is supported if it is a member of [CFLocaleCopyISOCountryCodes](https://developer.apple.com/documentation/corefoundation/1543372-cflocalecopyisocountrycodes).
+ */
+/// - Tag: EmojiFlagCountryCodes
+public var EmojiFlagCountryCodes = Veximoji.countryCodes
+/**
+ Computes and returns all supported [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision codes.
+ 
+ For more information on subdivision codes see [this Wikipedia article](https://en.wikipedia.org/wiki/ISO_3166-2).
+ */
+/// - Tag: EmojiFlagSubdivisionCodes
+public var EmojiFlagSubdivisionCodes = Veximoji.subdivisionCodes
+/**
+ Computes and returns all supported exceptionally reserved [ISO 3166-1](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) codes.
+ 
+ For more information on exceptional reservation codes see [this Wikipedia article](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Exceptional_reservations).
+ */
+/// - Tag: EmojiFlagInternationalCodes
+public var EmojiFlagInternationalCodes = Veximoji.internationalCodes
+/**
+ Computes and returns the all [UniqueTerms](x-source-tag://UniqueTerms) as raw values.
+ */
+/// - Tag: EmojiFlagUniqueTerms
 public var EmojiFlagUniqueTerms = Veximoji.uniqueTerms
 
-/// Used to represent an emoji flag category. In the context of `Veximoji`, this class used internally to represent each case of the [Veximoji.FlagCategories](x-source-tag://FlagCategories) enum when calling [Veximoji.getFlag](x-source-tag://getFlag).
+/// Used internally to represent an emoji flag category.
 /// - Tag: FlagCategory
 fileprivate class FlagCategory {
-  let type: Veximoji.FlagCategories
+  let type: EmojiFlagCategory
   let validator: ((_: String) -> Bool)?
   let scalars: [String: [UInt32]]?
   
-  init(type: Veximoji.FlagCategories, validator: ((_: String) -> Bool)?, scalars: [String: [UInt32]]?) {
+  init(type: EmojiFlagCategory, validator: ((_: String) -> Bool)?, scalars: [String: [UInt32]]?) {
     self.type = type
     self.validator = validator ?? nil
     self.scalars = scalars ?? nil
@@ -23,7 +48,7 @@ public struct Veximoji {
   
   // MARK: - Enums
   
-  /// An enum representing each emoji flag category.
+  /// An enum representing all emoji flag categories.
   /// - Tag: FlagCategories
   public enum FlagCategories: String, CaseIterable {
     case country = "country"
@@ -33,9 +58,7 @@ public struct Veximoji {
   }
   
   /**
-   In this context, unique term refers to an emoji flag that does not correspond to a country or region, but rather to a unique reference, movement, or ideology.
-   
-   The unique term enum does not contain raw values. Its usage within `Veximoji` depends on the [Veximoji.uniqueTermScalars](x-source-tag://uniqueTermScalars) member which maps each enum case to an array of `UInt32` integers.
+   An enum representing emoji flags that do not correspond to a country, region, or government entity.
    */
   /// - Tag: UniqueTerms
   public enum UniqueTerms: String, CaseIterable {
@@ -52,7 +75,7 @@ public struct Veximoji {
   /**
    [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) codes refer to codes for provinces or states of countries in [ISO 3166-1](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes). (e.g., "GB-ENG" is the code for England, which is a subdivision of "GB", or Great Britain)
    
-   Public access to this enum is restricted. Use the [Veximoji.subdivisionCodes](x-source-tag://subdivisionCodes) computed property to obtain its raw values.
+   Public access to this enum is restricted. Use [EmojiFlagSubdivisionCodes](x-source-tag://EmojiFlagSubdivisionCodes).
    */
   /// - Tag: ISO3166_2
   fileprivate enum ISO3166_2: String, CaseIterable {
@@ -64,7 +87,7 @@ public struct Veximoji {
   /**
    [Exceptional reservation codes](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Exceptional_reservations) are codes reserved at the request of countries, governments, and/or international organizations. (e.g. the reserved code `EU` is used to identify the "European Union")
    
-   Public access to this enum is restricted. Use the [Veximoji.internationalCodes](x-source-tag://internationalCodes) computed property to obtain its raw values.
+   Public access to this enum is restricted. Use the [EmojiFlagInternationalCodes](x-source-tag://EmojiFlagInternationalCodes).
    */
   /// - Tag: ExceptionalReservations
   fileprivate enum ExceptionalReservations: String, CaseIterable {
@@ -73,7 +96,7 @@ public struct Veximoji {
   }
   
   /**
-   Contains Unicode scalars for each case of the [Veximoji.UniqueTerms](x-source-tag://UniqueTerms) enum. Each scalar is a `UInt32` value that when sequentially appended to a string's `unicodeScalars` property composes the corresponding emoji flag.
+   Contains Unicode scalars for each case of the [EmojiFlagUniqueTerms](x-source-tag://EmojiFlagUniqueTerms) enum. Each scalar is a `UInt32` value that when sequentially appended to a string's `unicodeScalars` property composes the corresponding emoji flag.
    
    Public access to this dictionary is restricted. To access the scalars of a particular emoji flag, use the `unicodeScalars` property of its string.
    */
@@ -231,7 +254,7 @@ public struct Veximoji {
    # Example #
    ```
    if Veximoji.validateISO3166_1(code: "do")  {
-    print("Code is valid")
+   print("Code is valid")
    }
    ```
    */
@@ -251,7 +274,7 @@ public struct Veximoji {
    # Example #
    ```
    if Veximoji.validateISO3166_2(code: "gb-eng")  {
-    print("Code is valid")
+   print("Code is valid")
    }
    ```
    */
@@ -271,7 +294,7 @@ public struct Veximoji {
    # Example #
    ```
    if Veximoji.validateExceptionalReservation(code: "eu")  {
-    print("Code is valid")
+   print("Code is valid")
    }
    ```
    */
@@ -293,7 +316,7 @@ public struct Veximoji {
    # Example #
    ```
    if let flag = Veximoji.country(code: "DO")  {
-    print("\(flag)")
+   print("\(flag)")
    }
    ```
    */
@@ -317,7 +340,7 @@ public struct Veximoji {
    # Example #
    ```
    if let flag = Veximoji.subdivision(code: "GB-WLS")  {
-    print("\(flag)")
+   print("\(flag)")
    }
    ```
    */
@@ -341,7 +364,7 @@ public struct Veximoji {
    # Example #
    ```
    if let flag = Veximoji.international(code: "EU")  {
-    print("\(flag)")
+   print("\(flag)")
    }
    ```
    */
@@ -367,7 +390,7 @@ public struct Veximoji {
    # Example #
    ```
    if let flag = Veximoji.unique(named: .pirate)  {
-    print("\(flag)")
+   print("\(flag)")
    }
    ```
    */
@@ -391,7 +414,7 @@ public struct Veximoji {
    # Example #
    ```
    if let flag = "UN".flag()  {
-    print("\(flag)")
+   print("\(flag)")
    }
    ```
    */
@@ -410,7 +433,7 @@ extension String {
    # Example #
    ```
    if let flag = "DO".countryFlag()  {
-    print("\(flag)")
+   print("\(flag)")
    }
    ```
    */
@@ -426,7 +449,7 @@ extension String {
    # Example #
    ```
    if let flag = "GB-WLS".subdivisionFlag()  {
-    print("\(flag)")
+   print("\(flag)")
    }
    ```
    */
@@ -436,13 +459,13 @@ extension String {
   
   /**
    Used internally by [String.flag](x-source-tag://flag) to obtain the emoji flag of an ISO 3166-1 alpha-2 exceptional reservation code.
-      
+   
    - returns: `String?` Either a string representing the emoji flag of the given exceptional reservation code or `nil`.
    
    # Example #
    ```
    if let flag = "EU".internationalFlag()  {
-    print("\(flag)")
+   print("\(flag)")
    }
    ```
    */
@@ -452,13 +475,13 @@ extension String {
   
   /**
    Used internally by [String.flag](x-source-tag://flag) to obtain the emoji flag of a given unique term associated with [Veximoji.UniqueTerms](x-source-tag://UniqueTerms) raw values.
-      
+   
    - returns: `String?` Either a string representing the emoji flag of the unique term raw value or `nil`.
    
    # Example #
    ```
    if let flag = "pirate".uniqueFlag()  {
-    print("\(flag)")
+   print("\(flag)")
    }
    ```
    */
@@ -478,7 +501,7 @@ extension String {
    # Example #
    ```
    if let flag = "UN".flag()  {
-    print("\(flag)")
+   print("\(flag)")
    }
    ```
    */
